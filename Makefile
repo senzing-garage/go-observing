@@ -78,8 +78,6 @@ update-pkg-cache:
 clean:
 	@go clean -cache
 	@go clean -testcache
-	@docker rm --force $(DOCKER_CONTAINER_NAME) 2> /dev/null || true
-	@docker rmi --force $(DOCKER_IMAGE_NAME) $(DOCKER_BUILD_IMAGE_NAME) 2> /dev/null || true
 	@rm -rf $(TARGET_DIRECTORY) || true
 	@rm -f $(GOPATH)/bin/$(PROGRAM_NAME) || true
 
