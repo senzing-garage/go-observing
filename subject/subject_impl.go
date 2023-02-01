@@ -64,8 +64,6 @@ Input
 */
 func (subject *SubjectImpl) NotifyObservers(ctx context.Context, message string) error {
 	var err error = nil
-	lock.RLock()
-	defer lock.RUnlock()
 	for _, observer := range subject.observerList {
 		observer.UpdateObserver(ctx, message)
 	}
