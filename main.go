@@ -5,6 +5,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/senzing/go-observing/observer"
 	"github.com/senzing/go-observing/subject"
@@ -96,5 +97,12 @@ func main() {
 	if aSubject.HasObservers(ctx) {
 		fmt.Print("Error: All observers have been removed.")
 	}
+
+	// Give time to allow Observers to print.
+
+	sleepDuration := 2 * time.Second
+	fmt.Printf("Sleeping %.0f seconds to allow Observers to print.\n", sleepDuration.Seconds())
+	time.Sleep(sleepDuration)
+	fmt.Println("Done.")
 
 }
