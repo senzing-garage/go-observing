@@ -10,11 +10,6 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-const (
-	defaultTruncation = 76
-	printResults      = false
-)
-
 var (
 	subjectSingleton Subject
 )
@@ -28,16 +23,6 @@ func getTestObject(ctx context.Context, test *testing.T) Subject {
 		subjectSingleton = &SubjectImpl{}
 	}
 	return subjectSingleton
-}
-
-func printResult(test *testing.T, title string, result interface{}) {
-	if printResults {
-		test.Logf("%s: %v", title, result)
-	}
-}
-
-func printActual(test *testing.T, actual interface{}) {
-	printResult(test, "Actual", actual)
 }
 
 func testError(test *testing.T, ctx context.Context, err error) {
@@ -124,4 +109,43 @@ func ExampleSubjectImpl_HasObservers() {
 	subject := &SubjectImpl{}
 	fmt.Print(subject.HasObservers(ctx))
 	// Output: false
+}
+
+func ExampleSubjectImpl_RegisterObserver() {
+	// For more information, visit https://github.com/Senzing/go-observing/blob/main/subject/subject_test.go
+	ctx := context.TODO()
+	subject := &SubjectImpl{}
+	observer := &observer.ObserverNull{
+		Id: "Observer 1",
+	}
+	err := subject.RegisterObserver(ctx, observer)
+	if err != nil {
+		fmt.Print(err)
+	}
+	// Output:
+}
+
+func ExampleSubjectImpl_NotifyObservers() {
+	// For more information, visit https://github.com/Senzing/go-observing/blob/main/subject/subject_test.go
+	ctx := context.TODO()
+	subject := &SubjectImpl{}
+	err := subject.NotifyObservers(ctx, "Message 1")
+	if err != nil {
+		fmt.Print(err)
+	}
+	// Output:
+}
+
+func ExampleSubjectImpl_UnregisterObserver() {
+	// For more information, visit https://github.com/Senzing/go-observing/blob/main/subject/subject_test.go
+	ctx := context.TODO()
+	subject := &SubjectImpl{}
+	observer := &observer.ObserverNull{
+		Id: "Observer 1",
+	}
+	err := subject.UnregisterObserver(ctx, observer)
+	if err != nil {
+		fmt.Print(err)
+	}
+	// Output:
 }
