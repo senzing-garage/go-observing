@@ -103,6 +103,17 @@ func TestSubjectImpl_NotifyObservers(test *testing.T) {
 	testError(test, ctx, err)
 }
 
+func TestSubjectImpl_UnregisterObserver(test *testing.T) {
+	ctx := context.TODO()
+	subject := getTestObject(ctx, test)
+	observer := &observer.ObserverNull{
+		Id: "Observer 1",
+	}
+	err := subject.UnregisterObserver(ctx, observer)
+	testError(test, ctx, err)
+	assert.False(test, subject.HasObservers(ctx))
+}
+
 // ----------------------------------------------------------------------------
 // Examples for godoc documentation
 // ----------------------------------------------------------------------------

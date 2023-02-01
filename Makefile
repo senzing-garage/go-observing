@@ -51,8 +51,8 @@ build-linux:
 
 .PHONY: test
 test:
-#	@go test -v -p 1 ./...
-	@go test -v ./.
+	@go test -v -p 1 ./...
+#	@go test -v ./.
 #	@go test -v ./observer
 #	@go test -v ./subject
 
