@@ -10,6 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -
 
+## [0.1.1] - 2023-02-10
+
+### Changed to 0.1.1
+
+- Fixed proxy-pull
+
 ## [0.1.0] - 2023-02-02
 
 ### Added to 0.1.0
