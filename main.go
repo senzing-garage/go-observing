@@ -13,7 +13,6 @@ import (
 
 func main() {
 	ctx := context.TODO()
-	var err error = nil
 
 	// Create a Subject.
 
@@ -23,7 +22,7 @@ func main() {
 		fmt.Print("Error: there shouldn't be any observers at this point.")
 	}
 
-	err = aSubject.NotifyObservers(ctx, "Error: No observers registered, yet.")
+	err := aSubject.NotifyObservers(ctx, "Error: No observers registered, yet.")
 	if err != nil {
 		fmt.Print(err)
 	}
