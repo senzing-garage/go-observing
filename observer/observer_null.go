@@ -12,7 +12,8 @@ import (
 // ObserverNull is a simple example of the Subject interface.
 // It is mainly used for testing.
 type ObserverNull struct {
-	Id string
+	Id       string
+	IsSilent bool
 }
 
 // ----------------------------------------------------------------------------
@@ -39,5 +40,7 @@ Input
   - message: The string to propagate to all registered Observers.
 */
 func (observer *ObserverNull) UpdateObserver(ctx context.Context, message string) {
-	fmt.Printf("Observer: %s;  Message: %s\n", observer.Id, message)
+	if !observer.IsSilent {
+		fmt.Printf("Observer: %s;  Message: %s\n", observer.Id, message)
+	}
 }
