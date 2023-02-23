@@ -30,8 +30,7 @@ func main() {
 	// Register an observer.
 
 	anObserver1 := &observer.ObserverNull{
-		Id:       "Observer 1",
-		IsSilent: true,
+		Id: "Observer 1",
 	}
 	err = aSubject.RegisterObserver(ctx, anObserver1)
 	if err != nil {
@@ -48,8 +47,7 @@ func main() {
 	// Register another observer.
 
 	anObserver2 := &observer.ObserverNull{
-		Id:       "Observer 2",
-		IsSilent: true,
+		Id: "Observer 2",
 	}
 	err = aSubject.RegisterObserver(ctx, anObserver2)
 	if err != nil {
