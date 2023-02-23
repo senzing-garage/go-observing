@@ -74,7 +74,8 @@ func TestSubjectImpl_RegisterObserver(test *testing.T) {
 	ctx := context.TODO()
 	subject := getTestObject(ctx, test)
 	observer := &observer.ObserverNull{
-		Id: "Observer 1",
+		Id:       "Observer 1",
+		IsSilent: true,
 	}
 	err := subject.RegisterObserver(ctx, observer)
 	testError(test, ctx, err)
@@ -92,7 +93,8 @@ func TestSubjectImpl_UnregisterObserver(test *testing.T) {
 	ctx := context.TODO()
 	subject := getTestObject(ctx, test)
 	observer := &observer.ObserverNull{
-		Id: "Observer 1",
+		Id:       "Observer 1",
+		IsSilent: true,
 	}
 	err := subject.UnregisterObserver(ctx, observer)
 	testError(test, ctx, err)
@@ -116,7 +118,8 @@ func ExampleSubjectImpl_RegisterObserver() {
 	ctx := context.TODO()
 	subject := &SubjectImpl{}
 	observer := &observer.ObserverNull{
-		Id: "Observer 1",
+		Id:       "Observer 1",
+		IsSilent: true,
 	}
 	err := subject.RegisterObserver(ctx, observer)
 	if err != nil {
@@ -141,7 +144,8 @@ func ExampleSubjectImpl_UnregisterObserver() {
 	ctx := context.TODO()
 	subject := &SubjectImpl{}
 	observer := &observer.ObserverNull{
-		Id: "Observer 1",
+		Id:       "Observer 1",
+		IsSilent: true,
 	}
 	err := subject.UnregisterObserver(ctx, observer)
 	if err != nil {
