@@ -54,6 +54,7 @@ build-linux:
 test:
 	@go test -v -p 1 ./...
 #	@go test -v ./.
+#	@go test -v ./notifier
 #	@go test -v ./observer
 #	@go test -v ./subject
 

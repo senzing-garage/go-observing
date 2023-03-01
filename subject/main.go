@@ -17,3 +17,10 @@ type Subject interface {
 	RegisterObserver(ctx context.Context, observer observer.Observer) error
 	UnregisterObserver(ctx context.Context, observer observer.Observer) error
 }
+
+// ----------------------------------------------------------------------------
+// Constants
+// ----------------------------------------------------------------------------
+
+// Identfier of the  package found messages having the format "senzing-6463xxxx".
+const ProductId = 6463
