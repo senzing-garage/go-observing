@@ -1,4 +1,4 @@
-# Makefile that builds g2-sdk-go, a "go" program.
+# Makefile for go-observing.
 
 # "Simple expanded" variables (':=')
 
@@ -7,8 +7,8 @@ PROGRAM_NAME := $(shell basename `git rev-parse --show-toplevel`)
 MAKEFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
 MAKEFILE_DIRECTORY := $(dir $(MAKEFILE_PATH))
 TARGET_DIRECTORY := $(MAKEFILE_DIRECTORY)/target
-BUILD_VERSION := $(shell git describe --always --tags --abbrev=0 --dirty)
-BUILD_TAG := $(shell git describe --always --tags --abbrev=0)
+BUILD_VERSION := $(shell git describe --always --tags --abbrev=0 --dirty  | sed 's/v//')
+BUILD_TAG := $(shell git describe --always --tags --abbrev=0  | sed 's/v//')
 BUILD_ITERATION := $(shell git log $(BUILD_TAG)..HEAD --oneline | wc -l | sed 's/^ *//')
 GIT_REMOTE_URL := $(shell git config --get remote.origin.url)
 GO_PACKAGE_NAME := $(shell echo $(GIT_REMOTE_URL) | sed -e 's|^git@github.com:|github.com/|' -e 's|\.git$$||' -e 's|Senzing|senzing|')
@@ -28,6 +28,7 @@ dependencies:
 	@go get -t -u ./...
 	@go mod tidy
 
+
 .PHONY: build
 build: dependencies build-linux
 
@@ -37,11 +38,11 @@ build-linux:
 	@GOOS=linux \
 	GOARCH=amd64 \
 	go build \
-	  -ldflags \
-	    "-X 'github.com/senzing/servegrpc/cmd.buildVersion=${BUILD_VERSION}' \
-	     -X 'github.com/senzing/servegrpc/cmd.buildIteration=${BUILD_ITERATION}' \
-	    " \
-	  -o $(GO_PACKAGE_NAME)
+		-ldflags \
+			"-X 'github.com/senzing/servegrpc/cmd.buildVersion=${BUILD_VERSION}' \
+			-X 'github.com/senzing/servegrpc/cmd.buildIteration=${BUILD_ITERATION}' \
+			" \
+		-o $(GO_PACKAGE_NAME)
 	@mkdir -p $(TARGET_DIRECTORY)/linux || true
 	@mv $(GO_PACKAGE_NAME) $(TARGET_DIRECTORY)/linux
 
@@ -53,6 +54,7 @@ build-linux:
 test:
 	@go test -v -p 1 ./...
 #	@go test -v ./.
+#	@go test -v ./notifier
 #	@go test -v ./observer
 #	@go test -v ./subject
 
@@ -72,7 +74,8 @@ run:
 .PHONY: update-pkg-cache
 update-pkg-cache:
 	@GOPROXY=https://proxy.golang.org GO111MODULE=on \
-	go get $(GO_PACKAGE_NAME)@$(BUILD_TAG)
+		go get $(GO_PACKAGE_NAME)@$(BUILD_TAG)
+
 
 .PHONY: clean
 clean:

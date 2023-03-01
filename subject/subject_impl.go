@@ -26,6 +26,16 @@ var lock = sync.RWMutex{}
 // Internal functions
 // ----------------------------------------------------------------------------
 
+func contains(ctx context.Context, haystack []observer.Observer, needle observer.Observer) bool {
+	needleId := needle.GetObserverId(ctx)
+	for _, value := range haystack {
+		if value.GetObserverId(ctx) == needleId {
+			return true
+		}
+	}
+	return false
+}
+
 func removeFromSlice(ctx context.Context, observerList []observer.Observer, observerToRemove observer.Observer) []observer.Observer {
 	removeId := observerToRemove.GetObserverId(ctx)
 	observerListLength := len(observerList)
@@ -41,6 +51,19 @@ func removeFromSlice(ctx context.Context, observerList []observer.Observer, obse
 // ----------------------------------------------------------------------------
 // Interface methods
 // ----------------------------------------------------------------------------
+
+/*
+The GetObservers method returns a clone of registered Observers.
+The caller will not have access to the type-struct's internal slice of observers.
+
+Input
+  - ctx: A context to control lifecycle.
+*/
+func (subject *SubjectImpl) GetObservers(ctx context.Context) []observer.Observer {
+	result := make([]observer.Observer, len(subject.observerList))
+	copy(result, subject.observerList)
+	return result
+}
 
 /*
 The HasObservers method is used to determine if there are any Observers.
@@ -82,7 +105,9 @@ func (subject *SubjectImpl) RegisterObserver(ctx context.Context, observer obser
 	var err error = nil
 	lock.RLock()
 	defer lock.RUnlock()
-	subject.observerList = append(subject.observerList, observer)
+	if !contains(ctx, subject.observerList, observer) {
+		subject.observerList = append(subject.observerList, observer)
+	}
 	return err
 }
 

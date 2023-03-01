@@ -10,6 +10,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -
 
+## [0.1.3] - 2023-03-01
+
+### Added in 0.1.3
+
+- `subject.GetObservers()`
+- `notifier.Notify()`
+
 ## [0.1.2] - 2023-02-23
 
 ### Added in 0.1.2

@@ -64,6 +64,38 @@ func teardown() error {
 // Test interface functions
 // ----------------------------------------------------------------------------
 
+func TestSubjectImpl_GetObservers(test *testing.T) {
+	ctx := context.TODO()
+	subject := &SubjectImpl{}
+	observer := &observer.ObserverNull{
+		Id: "Observer 1",
+	}
+	subject.RegisterObserver(ctx, observer)
+	subject.RegisterObserver(ctx, observer)
+	subject.RegisterObserver(ctx, observer)
+
+	observers := subject.GetObservers(ctx)
+	assert.Equal(test, 1, len(observers))
+}
+
+func TestSubjectImpl_GetObservers_multi(test *testing.T) {
+	ctx := context.TODO()
+	subject := &SubjectImpl{}
+	observer1 := &observer.ObserverNull{
+		Id: "Observer 1",
+	}
+	observer2 := &observer.ObserverNull{
+		Id: "Observer 2",
+	}
+	subject.RegisterObserver(ctx, observer1)
+	subject.RegisterObserver(ctx, observer1)
+	subject.RegisterObserver(ctx, observer2)
+	subject.RegisterObserver(ctx, observer2)
+
+	observers := subject.GetObservers(ctx)
+	assert.Equal(test, 2, len(observers))
+}
+
 func TestSubjectImpl_HasObservers(test *testing.T) {
 	ctx := context.TODO()
 	subject := getTestObject(ctx, test)
