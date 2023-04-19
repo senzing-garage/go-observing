@@ -42,6 +42,9 @@ func Notify(ctx context.Context, observers subject.Subject, productId int, messa
 		details["subjectId"] = strconv.Itoa(productId)
 		details["messageId"] = strconv.Itoa(messageId)
 		details["messageTime"] = time.Now().UTC().Format(time.RFC3339Nano)
+		if err != nil {
+			details["error"] = err.Error()
+		}
 		message, err := json.Marshal(details)
 		if err != nil {
 			fmt.Printf("Error: %s", err.Error())
