@@ -10,6 +10,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -
 
+## [0.2.1] - 2023-04-19
+
+### Changed in 0.2.1
+
+- Change time format to `time.Now().UTC().Format(time.RFC3339Nano)`
+
+### Fixed in 0.2.1
+
+- Fixed concurrency issue with unregistering observer
+
 ## [0.2.0] - 2023-03-03
 
 ### Added in 0.2.0

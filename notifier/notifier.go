@@ -39,10 +39,9 @@ Output
 */
 func Notify(ctx context.Context, observers subject.Subject, productId int, messageId int, err error, details map[string]string) {
 	if observers != nil {
-		now := time.Now()
 		details["subjectId"] = strconv.Itoa(productId)
 		details["messageId"] = strconv.Itoa(messageId)
-		details["messageTime"] = strconv.FormatInt(now.UnixNano(), 10)
+		details["messageTime"] = time.Now().UTC().Format(time.RFC3339Nano)
 		if err != nil {
 			details["error"] = err.Error()
 		}
@@ -50,7 +49,9 @@ func Notify(ctx context.Context, observers subject.Subject, productId int, messa
 		if err != nil {
 			fmt.Printf("Error: %s", err.Error())
 		} else {
-			observers.NotifyObservers(ctx, string(message))
+			if observers != nil { // For safety.
+				observers.NotifyObservers(ctx, string(message))
+			}
 		}
 	}
 }
