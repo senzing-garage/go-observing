@@ -24,27 +24,9 @@ which adheres to the
 [Observer](observer/main.go)
 interface.
 
-### Developing
+## References
 
-### Testing
-
-1. Identify git repository.
-
-    ```console
-    export GIT_ACCOUNT=senzing
-    export GIT_REPOSITORY=go-observing
-    export GIT_ACCOUNT_DIR=~/${GIT_ACCOUNT}.git
-    export GIT_REPOSITORY_DIR="${GIT_ACCOUNT_DIR}/${GIT_REPOSITORY}"
-
-    ```
-
-1. Using the environment variables values just set, follow steps in
-   [clone-repository](https://github.com/Senzing/knowledge-base/blob/main/HOWTO/clone-repository.md) to install the Git repository.
-
-1. Run tests.
-
-    ```console
-    cd ${GIT_REPOSITORY_DIR}
-    make test
-
-    ```
+- [Development](docs/development.md)
+- [Errors](docs/errors.md)
+- [Examples](docs/examples.md)
+- [Package reference](https://pkg.go.dev/github.com/senzing/g2-sdk-go-base)

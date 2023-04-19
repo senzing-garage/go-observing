@@ -1,1 +1,1 @@
-## Errors
+# go-observing errors
