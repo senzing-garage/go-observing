@@ -97,7 +97,7 @@ func main() {
 		fmt.Print("Error: All observers have been removed.")
 	}
 
-	// Run a gRPC server
+	// Run an Observer gRPC service.
 
 	aGrpcSubject := &grpcsubject.SubjectImpl{
 		Port: 4100,
@@ -107,12 +107,5 @@ func main() {
 		fmt.Print(err)
 	}
 	aGrpcSubject.Serve(ctx)
-
-	// Give time to allow Observers to print.
-
-	// sleepDuration := 2 * time.Second
-	// fmt.Printf("Sleeping %.0f seconds to allow Observers to print.\n", sleepDuration.Seconds())
-	// time.Sleep(sleepDuration)
-	// fmt.Println("Done.")
 
 }

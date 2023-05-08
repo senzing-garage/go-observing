@@ -132,8 +132,9 @@ func (subject *SubjectImpl) Serve(ctx context.Context) error {
 	listener, err := net.Listen("tcp", fmt.Sprintf(":%d", subject.Port))
 	if err != nil {
 		log.Printf("Port: %d; Error: %v\n", subject.Port, err)
+		return err
 	}
-	log.Printf("Port: %dn", subject.Port)
+	log.Printf("Observer gRPC service running on port: %d\n", subject.Port)
 
 	// Create server.
 
