@@ -32,7 +32,12 @@ The following image shows flow of messages.
 
 ![Image of architecture](docs/img/repeater.png)
 
-An example of...
+The Subject notifies local Observers.  One of the Observers "repeats"
+the message by sending it via gRPC to a GrpcServer that embeds a Subject.
+That Subject notifies remote Observers.
+
+To create a GrpcServer, a Subject is created with Observers and wrapped with a GrpcServer.
+Example:
 
 ```go
 
