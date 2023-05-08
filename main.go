@@ -105,7 +105,7 @@ func main() {
 	}
 
 	aGrpcServer := &grpcserver.GrpcServerImpl{
-		Port:    4100,
+		Port:    8260,
 		Subject: aSubject,
 	}
 	aGrpcServer.Serve(ctx)
