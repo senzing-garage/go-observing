@@ -24,6 +24,54 @@ which adheres to the
 [Observer](observer/main.go)
 interface.
 
+## gRPC Server
+
+The `go-observer` repository also supports a gRPC-based aggregator of observer messages.
+
+The following image shows flow of messages.
+
+![Image of architecture](docs/img/repeater.png)
+
+An example of...
+
+```go
+
+package main
+
+import (
+ "context"
+
+ "github.com/senzing/go-observing/grpcserver"
+ "github.com/senzing/go-observing/observer"
+ "github.com/senzing/go-observing/subject"
+)
+
+func main() {
+    ctx := context.TODO()
+
+    // Create a Subject.
+
+    aSubject := &subject.SubjectImpl{}
+
+    // Register an observer.
+
+    anObserver1 := &observer.ObserverNull{
+        Id: "Observer 1",
+    }
+    err = aSubject.RegisterObserver(ctx, anObserver1)
+    if err != nil {
+        fmt.Print(err)
+    }
+
+    // Start gRPC service.
+
+    aGrpcServer := &grpcserver.GrpcServerImpl{
+        Port:    8260,
+        Subject: aSubject,
+    }
+    aGrpcServer.Serve(ctx)
+```
+
 ## References
 
 - [Development](docs/development.md)
