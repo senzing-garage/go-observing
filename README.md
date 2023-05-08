@@ -24,7 +24,7 @@ which adheres to the
 [Observer](observer/main.go)
 interface.
 
-## gRPC Server
+## Observer gRPC Server
 
 The `go-observer` repository also supports a gRPC-based aggregator of observer messages.
 
