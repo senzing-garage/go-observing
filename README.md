@@ -58,7 +58,7 @@ func main() {
 
     aSubject := &subject.SubjectImpl{}
 
-    // Register an observer.
+    // Register Observer(s) with the Subject.
 
     anObserver1 := &observer.ObserverNull{
         Id: "Observer 1",
@@ -68,7 +68,7 @@ func main() {
         fmt.Print(err)
     }
 
-    // Start gRPC service.
+    // Start gRPC service with an embedded Subject.
 
     aGrpcServer := &grpcserver.GrpcServerImpl{
         Port:    8260,
