@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/senzing/go-observing/grpcsubject"
+	"github.com/senzing/go-observing/grpcserver"
 	"github.com/senzing/go-observing/observer"
 	"github.com/senzing/go-observing/subject"
 )
@@ -99,13 +99,15 @@ func main() {
 
 	// Run an Observer gRPC service.
 
-	aGrpcSubject := &grpcsubject.SubjectImpl{
-		Port: 4100,
-	}
-	err = aGrpcSubject.RegisterObserver(ctx, anObserver1)
+	err = aSubject.RegisterObserver(ctx, anObserver1)
 	if err != nil {
 		fmt.Print(err)
 	}
-	aGrpcSubject.Serve(ctx)
+
+	aGrpcServer := &grpcserver.GrpcServerImpl{
+		Port:    4100,
+		Subject: aSubject,
+	}
+	aGrpcServer.Serve(ctx)
 
 }
