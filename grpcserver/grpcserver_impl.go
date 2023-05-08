@@ -6,7 +6,7 @@ import (
 	"log"
 	"net"
 
-	grpcx "github.com/senzing/go-observing/grpcx"
+	"github.com/senzing/go-observing/observerpb"
 	"github.com/senzing/go-observing/subject"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -18,7 +18,7 @@ import (
 
 // GrpcServerImpl is the default implementation of the Subject interface.
 type GrpcServerImpl struct {
-	grpcx.UnimplementedObserverServer
+	observerpb.UnimplementedObserverServer
 	Subject subject.Subject
 	Port    int
 }
@@ -47,7 +47,7 @@ func (subject *GrpcServerImpl) Serve(ctx context.Context) error {
 	// Create server.
 
 	aGrpcServer := grpc.NewServer()
-	grpcx.RegisterObserverServer(aGrpcServer, subject)
+	observerpb.RegisterObserverServer(aGrpcServer, subject)
 
 	// Enable reflection.
 
@@ -75,11 +75,11 @@ Output
   - Empty response
   - Error
 */
-func (subject *GrpcServerImpl) UpdateObserver(ctx context.Context, request *grpcx.UpdateObserverRequest) (*grpcx.UpdateObserverResponse, error) {
+func (subject *GrpcServerImpl) UpdateObserver(ctx context.Context, request *observerpb.UpdateObserverRequest) (*observerpb.UpdateObserverResponse, error) {
 	var err error = nil
 	if subject.Subject != nil {
 		err = subject.Subject.NotifyObservers(ctx, request.GetMessage())
 	}
-	response := grpcx.UpdateObserverResponse{}
+	response := observerpb.UpdateObserverResponse{}
 	return &response, err
 }

@@ -4,7 +4,7 @@ import (
 	"context"
 	"log"
 
-	grpcx "github.com/senzing/go-observing/grpcx"
+	"github.com/senzing/go-observing/observerpb"
 )
 
 // ----------------------------------------------------------------------------
@@ -13,7 +13,7 @@ import (
 
 // ObserverGrpc sends the observed message to a Grpc server.
 type ObserverGrpc struct {
-	GrpcClient grpcx.ObserverClient
+	GrpcClient observerpb.ObserverClient
 	Id         string
 }
 
@@ -42,7 +42,7 @@ Input
 */
 func (observer *ObserverGrpc) UpdateObserver(ctx context.Context, message string) {
 	if observer.GrpcClient != nil {
-		request := grpcx.UpdateObserverRequest{
+		request := observerpb.UpdateObserverRequest{
 			Message: message,
 		}
 		_, err := observer.GrpcClient.UpdateObserver(ctx, &request)
