@@ -47,7 +47,7 @@ The following instructions were used to create a
    Example:
 
     ```console
-    export SENZING_OUTPUT_DIR=${GIT_REPOSITORY_DIR}/grpc
+    export SENZING_OUTPUT_DIR=${GIT_REPOSITORY_DIR}/observerpb
     mkdir -p ${SENZING_OUTPUT_DIR}
     protoc \
     --proto_path=${GIT_REPOSITORY_DIR}/ \
