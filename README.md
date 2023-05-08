@@ -44,11 +44,11 @@ Example:
 package main
 
 import (
- "context"
+    "context"
 
- "github.com/senzing/go-observing/grpcserver"
- "github.com/senzing/go-observing/observer"
- "github.com/senzing/go-observing/subject"
+    "github.com/senzing/go-observing/grpcserver"
+    "github.com/senzing/go-observing/observer"
+    "github.com/senzing/go-observing/subject"
 )
 
 func main() {
@@ -76,6 +76,9 @@ func main() {
     }
     aGrpcServer.Serve(ctx)
 ```
+
+A working GrpcServer can be seen in
+[main.go](main.go)
 
 ## References
 
