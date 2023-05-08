@@ -1,0 +1,17 @@
+syntax = "proto3";
+package observer;
+
+option go_package = "github.com/senzing/go-observing/grpc";
+option java_multiple_files = true;
+option java_package = "com.senzing.observer.Grpc";
+option java_outer_classname = "GrpcProto";
+
+service Observer {
+  rpc UpdateObserver (UpdateObserverRequest) returns (UpdateObserverResponse) {}
+}
+
+message UpdateObserverRequest {
+  string message = 1;
+}
+
+message UpdateObserverResponse {}
