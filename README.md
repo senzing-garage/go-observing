@@ -29,7 +29,8 @@ interface.
 
 ### Observer gRPC Server
 
-The `go-observer` repository also supports a gRPC-based aggregator of observer messages.
+In addition to local, "in-process", observation,
+the `go-observer` repository also supports a gRPC-based aggregator of observer messages.
 
 The following image shows flow of messages.
 
@@ -83,8 +84,9 @@ func main() {
 A working GrpcServer can be seen in
 [main.go](main.go).
 
-An example of an ObserverGrpc can be seen in
-[observer/observer_grpc.go](observer/observer_grpc.go)
+The
+[ObserverGrpc](observer/observer_grpc.go)
+is an Observer that sends messages to a GrpcServer.
 
 ## References
 

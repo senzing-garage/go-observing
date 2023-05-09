@@ -17,4 +17,4 @@ type GrpcServer interface {
 // ----------------------------------------------------------------------------
 
 // Identfier of the  package found messages having the format "senzing-6464xxxx".
-const ProductId = 6464
+const ComponentId = 6464

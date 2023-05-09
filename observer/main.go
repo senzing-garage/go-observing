@@ -18,4 +18,4 @@ type Observer interface {
 // ----------------------------------------------------------------------------
 
 // Identfier of the  package found messages having the format "senzing-6462xxxx".
-const ProductId = 6462
+const ComponentId = 6462

@@ -16,7 +16,7 @@ import (
 // Types
 // ----------------------------------------------------------------------------
 
-// GrpcServerImpl is the default implementation of the Subject interface.
+// GrpcServerImpl is the default implementation of the GrpcServer interface.
 type GrpcServerImpl struct {
 	observerpb.UnimplementedObserverServer
 	Subject subject.Subject
@@ -69,7 +69,7 @@ observer and repeats it to local observers.
 
 Input
   - ctx: A context to control lifecycle.
-  - request: A component no longer wanting to listen to events.
+  - request: Includes the message to send to Observers.
 
 Output
   - Empty response
