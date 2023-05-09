@@ -9,6 +9,7 @@ software design pattern.
 [![Go Reference](https://pkg.go.dev/badge/github.com/senzing/go-observing.svg)](https://pkg.go.dev/github.com/senzing/go-observing)
 [![Go Report Card](https://goreportcard.com/badge/github.com/senzing/go-observing)](https://goreportcard.com/report/github.com/senzing/go-observing)
 [![go-test.yaml](https://github.com/Senzing/go-observing/actions/workflows/go-test.yaml/badge.svg)](https://github.com/Senzing/go-observing/actions/workflows/go-test.yaml)
+[![License](https://img.shields.io/badge/License-Apache2-brightgreen.svg)](https://github.com/Senzing/go-observing/blob/main/LICENSE)
 
 ## Overview
 
@@ -24,7 +25,9 @@ which adheres to the
 [Observer](observer/main.go)
 interface.
 
-## Observer gRPC Server
+## Use
+
+### Observer gRPC Server
 
 The `go-observer` repository also supports a gRPC-based aggregator of observer messages.
 
@@ -78,11 +81,14 @@ func main() {
 ```
 
 A working GrpcServer can be seen in
-[main.go](main.go)
+[main.go](main.go).
+
+An example of an ObserverGrpc can be seen in
+[observer/observer_grpc.go](observer/observer_grpc.go)
 
 ## References
 
-- [Development](docs/development.md)
-- [Errors](docs/errors.md)
-- [Examples](docs/examples.md)
-- [Package reference](https://pkg.go.dev/github.com/senzing/go-observing)
+1. [API documentation](https://pkg.go.dev/github.com/senzing/go-observing)
+1. [Development](docs/development.md)
+1. [Errors](docs/errors.md)
+1. [Examples](docs/examples.md)
