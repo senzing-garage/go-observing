@@ -44,7 +44,7 @@ func teardown() error {
 func TestNotify(test *testing.T) {
 	ctx := context.TODO()
 	observers := &subject.SubjectImpl{}
-	origin := ""
+	origin := "Machine: 6 Process: Rover"
 	subjectId := 1
 	messageId := 2
 	var err error = nil
@@ -63,7 +63,7 @@ func ExampleNotify() {
 	// For more information, visit https://github.com/Senzing/go-observing/blob/main/notifier/notifier_test.go
 	ctx := context.TODO()
 	observers := &subject.SubjectImpl{}
-	origin := ""
+	origin := "Machine: 6 Process: Rover"
 	subjectId := 1
 	messageId := 2
 	var err error = nil
