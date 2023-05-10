@@ -1,4 +1,4 @@
-package observer
+package grpcserver
 
 import (
 	"context"
@@ -8,14 +8,13 @@ import (
 // Types
 // ----------------------------------------------------------------------------
 
-type Observer interface {
-	GetObserverId(ctx context.Context) string
-	UpdateObserver(ctx context.Context, message string)
+type GrpcServer interface {
+	Serve(ctx context.Context) error
 }
 
 // ----------------------------------------------------------------------------
 // Constants
 // ----------------------------------------------------------------------------
 
-// Identfier of the  package found messages having the format "senzing-6462xxxx".
-const ComponentId = 6462
+// Identfier of the  package found messages having the format "senzing-6464xxxx".
+const ComponentId = 6464

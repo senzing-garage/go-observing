@@ -10,6 +10,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -
 
+## [0.2.2] - 2023-05-10
+
+### Added in 0.2.2
+
+- gRPC service
+
+### Changed in 0.2.2
+
+- Method signature for notifier.Notify(...) adds "origin" parameter
+
 ## [0.2.1] - 2023-04-19
 
 ### Changed in 0.2.1

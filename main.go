@@ -5,8 +5,8 @@ package main
 import (
 	"context"
 	"fmt"
-	"time"
 
+	"github.com/senzing/go-observing/grpcserver"
 	"github.com/senzing/go-observing/observer"
 	"github.com/senzing/go-observing/subject"
 )
@@ -97,11 +97,17 @@ func main() {
 		fmt.Print("Error: All observers have been removed.")
 	}
 
-	// Give time to allow Observers to print.
+	// Run an Observer gRPC service.
 
-	sleepDuration := 2 * time.Second
-	fmt.Printf("Sleeping %.0f seconds to allow Observers to print.\n", sleepDuration.Seconds())
-	time.Sleep(sleepDuration)
-	fmt.Println("Done.")
+	err = aSubject.RegisterObserver(ctx, anObserver1)
+	if err != nil {
+		fmt.Print(err)
+	}
+
+	aGrpcServer := &grpcserver.GrpcServerImpl{
+		Port:    8260,
+		Subject: aSubject,
+	}
+	aGrpcServer.Serve(ctx)
 
 }

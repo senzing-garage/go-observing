@@ -5,4 +5,4 @@ package notifier
 // ----------------------------------------------------------------------------
 
 // Identfier of the  package found messages having the format "senzing-6461xxxx".
-const ProductId = 6461
+const ComponentId = 6461
