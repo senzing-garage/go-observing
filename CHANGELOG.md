@@ -10,6 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -
 
+## [0.2.3] - 2023-05-12
+
+### Added in 0.2.3
+
+- Fix bug (nil observer)
+
 ## [0.2.2] - 2023-05-10
 
 ### Added in 0.2.2
