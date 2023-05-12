@@ -103,10 +103,12 @@ Input
 */
 func (subject *SubjectImpl) RegisterObserver(ctx context.Context, observer observer.Observer) error {
 	var err error = nil
-	lock.RLock()
-	defer lock.RUnlock()
-	if !contains(ctx, subject.observerList, observer) {
-		subject.observerList = append(subject.observerList, observer)
+	if observer != nil {
+		lock.RLock()
+		defer lock.RUnlock()
+		if !contains(ctx, subject.observerList, observer) {
+			subject.observerList = append(subject.observerList, observer)
+		}
 	}
 	return err
 }
@@ -121,8 +123,10 @@ Input
 */
 func (subject *SubjectImpl) UnregisterObserver(ctx context.Context, observer observer.Observer) error {
 	var err error = nil
-	lock.RLock()
-	defer lock.RUnlock()
-	subject.observerList = removeFromSlice(ctx, subject.observerList, observer)
+	if observer != nil {
+		lock.RLock()
+		defer lock.RUnlock()
+		subject.observerList = removeFromSlice(ctx, subject.observerList, observer)
+	}
 	return err
 }
