@@ -55,7 +55,10 @@ func Notify(ctx context.Context, observers subject.Subject, origin string, subje
 			fmt.Printf("Error: %s", err.Error())
 		} else {
 			if observers != nil { // For safety.
-				observers.NotifyObservers(ctx, string(message))
+				err := observers.NotifyObservers(ctx, string(message))
+				if err != nil {
+					panic(err)
+				}
 			}
 		}
 	}

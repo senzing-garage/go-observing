@@ -108,6 +108,8 @@ func main() {
 		Port:    8260,
 		Subject: aSubject,
 	}
-	aGrpcServer.Serve(ctx)
-
+	err = aGrpcServer.Serve(ctx)
+	if err != nil {
+		fmt.Print(err)
+	}
 }
