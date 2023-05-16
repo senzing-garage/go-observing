@@ -19,8 +19,9 @@ import (
 // GrpcServerImpl is the default implementation of the GrpcServer interface.
 type GrpcServerImpl struct {
 	observerpb.UnimplementedObserverServer
-	Subject subject.Subject
-	Port    int
+	ServerOptions []grpc.ServerOption
+	Subject       subject.Subject
+	Port          int
 }
 
 // ----------------------------------------------------------------------------
@@ -46,7 +47,7 @@ func (subject *GrpcServerImpl) Serve(ctx context.Context) error {
 
 	// Create server.
 
-	aGrpcServer := grpc.NewServer()
+	aGrpcServer := grpc.NewServer(subject.ServerOptions...)
 	observerpb.RegisterObserverServer(aGrpcServer, subject)
 
 	// Enable reflection.
