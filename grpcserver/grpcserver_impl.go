@@ -19,9 +19,9 @@ import (
 // GrpcServerImpl is the default implementation of the GrpcServer interface.
 type GrpcServerImpl struct {
 	observerpb.UnimplementedObserverServer
+	Port          int
 	ServerOptions []grpc.ServerOption
 	Subject       subject.Subject
-	Port          int
 }
 
 // ----------------------------------------------------------------------------
