@@ -40,6 +40,7 @@ Output
   - A string containing the error received from Senzing's G2Product.
 */
 func Notify(ctx context.Context, observers subject.Subject, origin string, subjectId int, messageId int, err error, details map[string]string) {
+	localCtx := context.Background()
 	if observers != nil {
 		if len(origin) > 0 {
 			details["origin"] = origin
@@ -55,7 +56,7 @@ func Notify(ctx context.Context, observers subject.Subject, origin string, subje
 			fmt.Printf("Error: %s", err.Error())
 		} else {
 			if observers != nil { // For safety.
-				err := observers.NotifyObservers(ctx, string(message))
+				err := observers.NotifyObservers(localCtx, string(message))
 				if err != nil {
 					panic(err)
 				}
