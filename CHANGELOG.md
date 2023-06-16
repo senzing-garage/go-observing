@@ -14,7 +14,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed in 0.2.6
 
-- Notify() uses context.Background to avoid canceling Observation
+- Update dependencies
+  - github.com/stretchr/testify v1.8.4
+  - google.golang.org/grpc v1.56.0
 
 ## [0.2.5] - 2023-05-17
 
