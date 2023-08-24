@@ -131,17 +131,21 @@ func TestSubjectImpl_UnregisterObserver(test *testing.T) {
 	assert.False(test, subject.HasObservers(ctx))
 }
 
+func TestSubjectImpl_PrintBuffer(test *testing.T) {
+	fmt.Print("")
+}
+
 // ----------------------------------------------------------------------------
 // Examples for godoc documentation
 // ----------------------------------------------------------------------------
 
-//func ExampleSubjectImpl_HasObservers() {
-//	// For more information, visit https://github.com/Senzing/go-observing/blob/main/subject/subject_test.go
-//	ctx := context.TODO()
-//	subject := &SubjectImpl{}
-//	fmt.Print(subject.HasObservers(ctx))
-//	// Output: false
-//}
+func ExampleSubjectImpl_HasObservers() {
+	// For more information, visit https://github.com/Senzing/go-observing/blob/main/subject/subject_test.go
+	ctx := context.TODO()
+	subject := &SubjectImpl{}
+	fmt.Print(subject.HasObservers(ctx))
+	// Output: false
+}
 
 func ExampleSubjectImpl_RegisterObserver() {
 	// For more information, visit https://github.com/Senzing/go-observing/blob/main/subject/subject_test.go
