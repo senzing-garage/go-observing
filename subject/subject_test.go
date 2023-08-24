@@ -131,6 +131,13 @@ func TestSubjectImpl_UnregisterObserver(test *testing.T) {
 	assert.False(test, subject.HasObservers(ctx))
 }
 
+func TestSubjectImpl_PrintBuffer(test *testing.T) {
+	// This is a work-around for testing on windows.
+	// This clears out the print buffer.
+	// If not cleared, ExampleSubjectImpl_HasObservers() prints the buffer and confuses the "Output:"
+	fmt.Print("")
+}
+
 // ----------------------------------------------------------------------------
 // Examples for godoc documentation
 // ----------------------------------------------------------------------------
