@@ -10,6 +10,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -
 
+## [0.2.8] - 2023-10-13
+
+### Changed in 0.2.8
+
+- Refactored to `template-go`
+- Update dependencies
+  - google.golang.org/grpc v1.58.3
+
 ## [0.2.7] - 2023-08-04
 
 ### Changed in 0.2.7
