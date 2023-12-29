@@ -5,7 +5,7 @@ package notifier
 import (
 	"context"
 
-	"github.com/senzing/go-observing/subject"
+	"github.com/senzing-garage/go-observing/subject"
 )
 
 // ----------------------------------------------------------------------------
@@ -13,7 +13,7 @@ import (
 // ----------------------------------------------------------------------------
 
 func ExampleNotify() {
-	// For more information, visit https://github.com/Senzing/go-observing/blob/main/notifier/notifier_examples_test.go
+	// For more information, visit https://github.com/senzing-garage/go-observing/blob/main/notifier/notifier_examples_test.go
 	ctx := context.TODO()
 	observers := &subject.SubjectImpl{}
 	origin := "Machine: 6 Process: Rover"

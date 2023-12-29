@@ -6,8 +6,8 @@ import (
 	"log"
 	"net"
 
-	"github.com/senzing/go-observing/observerpb"
-	"github.com/senzing/go-observing/subject"
+	"github.com/senzing-garage/go-observing/observerpb"
+	"github.com/senzing-garage/go-observing/subject"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )

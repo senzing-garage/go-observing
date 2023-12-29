@@ -6,7 +6,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/senzing/go-observing/subject"
+	"github.com/senzing-garage/go-observing/subject"
 )
 
 // ----------------------------------------------------------------------------
