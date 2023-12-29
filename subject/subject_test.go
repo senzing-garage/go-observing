@@ -6,7 +6,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/senzing/go-observing/observer"
+	"github.com/senzing-garage/go-observing/observer"
 	"github.com/stretchr/testify/assert"
 )
 

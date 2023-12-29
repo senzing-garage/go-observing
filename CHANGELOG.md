@@ -10,6 +10,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -
 
+## [0.3.0] - 2023-12-29
+
+### Changed in 0.3.0
+
+- Renamed module to `github.com/senzing-garage/go-observing`
+- Refactor to [template-go](https://github.com/senzing-garage/template-go)
+- Update dependencies
+  - google.golang.org/grpc v1.60.1
+  - google.golang.org/protobuf v1.32.0
+
 ## [0.2.8] - 2023-10-13
 
 ### Changed in 0.2.8

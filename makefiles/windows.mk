@@ -1,4 +1,4 @@
-# Makefile extensions for darwin.
+# Makefile extensions for windows.
 
 # -----------------------------------------------------------------------------
 # Variables
@@ -6,22 +6,23 @@
 
 
 # -----------------------------------------------------------------------------
-# OS-ARCH specific targets
+# OS specific targets
 # -----------------------------------------------------------------------------
 
 .PHONY: build-osarch-specific
-build-osarch-specific: darwin/amd64
+build-osarch-specific: windows/amd64
+	@mv $(TARGET_DIRECTORY)/windows-amd64/$(PROGRAM_NAME) $(TARGET_DIRECTORY)/windows-amd64/$(PROGRAM_NAME).exe
 
 
 .PHONY: clean-osarch-specific
 clean-osarch-specific:
-	@rm -rf $(TARGET_DIRECTORY) || true
-	@rm -f $(GOPATH)/bin/$(PROGRAM_NAME) || true
+	del /F /S /Q $(TARGET_DIRECTORY)
+	del /F /S /Q $(GOPATH)/bin/$(PROGRAM_NAME)
 
 
 .PHONY: hello-world-osarch-specific
 hello-world-osarch-specific:
-	@echo "Hello World, from darwin."
+	@echo "Hello World, from windows."
 
 
 .PHONY: run-osarch-specific
@@ -42,6 +43,6 @@ test-osarch-specific:
 # Makefile targets supported only by this platform.
 # -----------------------------------------------------------------------------
 
-.PHONY: only-darwin
-only-darwin:
-	@echo "Only darwin has this Makefile target."
+.PHONY: only-windows
+only-windows:
+	@echo "Only windows has this Makefile target."

@@ -12,7 +12,7 @@ import (
 // ----------------------------------------------------------------------------
 
 func ExampleObserverNull_GetObserverId() {
-	// For more information, visit https://github.com/Senzing/go-observing/blob/main/observer/observer_examples_test.go
+	// For more information, visit https://github.com/senzing-garage/go-observing/blob/main/observer/observer_examples_test.go
 	ctx := context.TODO()
 	observer := &ObserverNull{
 		Id: "1",
@@ -22,7 +22,7 @@ func ExampleObserverNull_GetObserverId() {
 }
 
 func ExampleObserverNull_UpdateObserver() {
-	// For more information, visit https://github.com/Senzing/go-observing/blob/main/observer/observer_test.go
+	// For more information, visit https://github.com/senzing-garage/go-observing/blob/main/observer/observer_test.go
 	ctx := context.TODO()
 	observer := &ObserverNull{
 		Id: "1",
@@ -32,7 +32,7 @@ func ExampleObserverNull_UpdateObserver() {
 }
 
 func ExampleObserverWhiteList_GetObserverId() {
-	// For more information, visit https://github.com/Senzing/go-observing/blob/main/observer/observer_test.go
+	// For more information, visit https://github.com/senzing-garage/go-observing/blob/main/observer/observer_test.go
 	ctx := context.TODO()
 	observer := &ObserverWhiteList{
 		Id: "1",
@@ -42,7 +42,7 @@ func ExampleObserverWhiteList_GetObserverId() {
 }
 
 func ExampleObserverWhiteList_UpdateObserver() {
-	// For more information, visit https://github.com/Senzing/go-observing/blob/main/observer/observer_test.go
+	// For more information, visit https://github.com/senzing-garage/go-observing/blob/main/observer/observer_test.go
 	ctx := context.TODO()
 	message11 := `{"subjectId":"1", "messageId": "1"}`
 	message12 := `{"subjectId":"1", "messageId": "2"}`

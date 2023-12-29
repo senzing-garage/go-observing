@@ -4,7 +4,7 @@ import (
 	"context"
 	"log"
 
-	"github.com/senzing/go-observing/observerpb"
+	"github.com/senzing-garage/go-observing/observerpb"
 )
 
 // ----------------------------------------------------------------------------

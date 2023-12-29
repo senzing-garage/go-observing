@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/senzing/go-observing/observer"
+	"github.com/senzing-garage/go-observing/observer"
 )
 
 // ----------------------------------------------------------------------------
@@ -14,7 +14,7 @@ import (
 // ----------------------------------------------------------------------------
 
 //func ExampleSubjectImpl_HasObservers() {
-//	// For more information, visit https://github.com/Senzing/go-observing/blob/main/subject/subject_test.go
+//	// For more information, visit https://github.com/senzing-garage/go-observing/blob/main/subject/subject_test.go
 //	ctx := context.TODO()
 //	subject := &SubjectImpl{}
 //	fmt.Print(subject.HasObservers(ctx))
@@ -22,7 +22,7 @@ import (
 //}
 
 func ExampleSubjectImpl_RegisterObserver() {
-	// For more information, visit https://github.com/Senzing/go-observing/blob/main/subject/subject_test.go
+	// For more information, visit https://github.com/senzing-garage/go-observing/blob/main/subject/subject_test.go
 	ctx := context.TODO()
 	subject := &SubjectImpl{}
 	observer := &observer.ObserverNull{
@@ -36,7 +36,7 @@ func ExampleSubjectImpl_RegisterObserver() {
 }
 
 func ExampleSubjectImpl_NotifyObservers() {
-	// For more information, visit https://github.com/Senzing/go-observing/blob/main/subject/subject_test.go
+	// For more information, visit https://github.com/senzing-garage/go-observing/blob/main/subject/subject_test.go
 	ctx := context.TODO()
 	subject := &SubjectImpl{}
 	err := subject.NotifyObservers(ctx, "Message 1")
@@ -47,7 +47,7 @@ func ExampleSubjectImpl_NotifyObservers() {
 }
 
 func ExampleSubjectImpl_UnregisterObserver() {
-	// For more information, visit https://github.com/Senzing/go-observing/blob/main/subject/subject_test.go
+	// For more information, visit https://github.com/senzing-garage/go-observing/blob/main/subject/subject_test.go
 	ctx := context.TODO()
 	subject := &SubjectImpl{}
 	observer := &observer.ObserverNull{
