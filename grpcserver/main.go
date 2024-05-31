@@ -8,7 +8,7 @@ import (
 // Types
 // ----------------------------------------------------------------------------
 
-type GrpcServer interface {
+type Interface interface {
 	Serve(ctx context.Context) error
 }
 
@@ -17,4 +17,4 @@ type GrpcServer interface {
 // ----------------------------------------------------------------------------
 
 // Identfier of the  package found messages having the format "senzing-6464xxxx".
-const ComponentId = 6464
+const ComponentID = 6464

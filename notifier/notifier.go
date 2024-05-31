@@ -39,14 +39,13 @@ Input
 Output
   - A string containing the error received from Senzing's G2Product.
 */
-func Notify(ctx context.Context, observers subject.Subject, origin string, subjectId int, messageId int, err error, details map[string]string) {
-	localCtx := context.Background()
+func Notify(ctx context.Context, observers subject.Subject, origin string, subjectID int, messageID int, err error, details map[string]string) {
 	if observers != nil {
 		if len(origin) > 0 {
 			details["origin"] = origin
 		}
-		details["subjectId"] = strconv.Itoa(subjectId)
-		details["messageId"] = strconv.Itoa(messageId)
+		details["subjectId"] = strconv.Itoa(subjectID)
+		details["messageId"] = strconv.Itoa(messageID)
 		details["messageTime"] = time.Now().UTC().Format(time.RFC3339Nano)
 		if err != nil {
 			details["error"] = err.Error()
@@ -54,12 +53,10 @@ func Notify(ctx context.Context, observers subject.Subject, origin string, subje
 		message, err := json.Marshal(details)
 		if err != nil {
 			fmt.Printf("Error: %s", err.Error())
-		} else {
-			if observers != nil { // For safety.
-				err := observers.NotifyObservers(localCtx, string(message))
-				if err != nil {
-					panic(err)
-				}
+		} else if observers != nil { // For safety.
+			err := observers.NotifyObservers(ctx, string(message))
+			if err != nil {
+				panic(err)
 			}
 		}
 	}

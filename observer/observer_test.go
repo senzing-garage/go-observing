@@ -28,12 +28,12 @@ func TestMain(m *testing.M) {
 }
 
 func setup() error {
-	var err error = nil
+	var err error
 	return err
 }
 
 func teardown() error {
-	var err error = nil
+	var err error
 	return err
 }
 
@@ -43,29 +43,31 @@ func teardown() error {
 
 func TestObserverNull_GetObserverId(test *testing.T) {
 	ctx := context.TODO()
-	observer := &ObserverNull{
-		Id: "1",
+	observer := &NullObserver{
+		ID: "1",
 	}
-	assert.Equal(test, "1", observer.GetObserverId(ctx))
+	assert.Equal(test, "1", observer.GetObserverID(ctx))
 }
 
 func TestObserverNull_UpdateObserver(test *testing.T) {
+	_ = test
 	ctx := context.TODO()
-	observer := &ObserverNull{
-		Id: "1",
+	observer := &NullObserver{
+		ID: "1",
 	}
 	observer.UpdateObserver(ctx, "A message")
 }
 
 func TestObserverWhiteList_GetObserverId(test *testing.T) {
 	ctx := context.TODO()
-	observer := &ObserverWhiteList{
-		Id: "1",
+	observer := &WhiteListObserver{
+		ID: "1",
 	}
-	assert.Equal(test, "1", observer.GetObserverId(ctx))
+	assert.Equal(test, "1", observer.GetObserverID(ctx))
 }
 
 func TestObserverWhiteList_UpdateObserver(test *testing.T) {
+	_ = test
 	ctx := context.TODO()
 	message11 := `{"subjectId":"1", "messageId": "1"}`
 	message12 := `{"subjectId":"1", "messageId": "2"}`
@@ -73,8 +75,8 @@ func TestObserverWhiteList_UpdateObserver(test *testing.T) {
 	message22 := `{"subjectId":"2", "messageId": "2"}`
 	message31 := `{"subjectId":"3", "messageId": "1"}`
 
-	observer := &ObserverWhiteList{
-		Id: "1",
+	observer := &WhiteListObserver{
+		ID: "1",
 		WhiteList: map[int]map[int]bool{
 			1: {
 				1: true,

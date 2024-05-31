@@ -16,7 +16,7 @@ func main() {
 
 	// Create a Subject.
 
-	aSubject := &subject.SubjectImpl{}
+	aSubject := &subject.SimpleSubject{}
 
 	if aSubject.HasObservers(ctx) {
 		fmt.Print("Error: there shouldn't be any observers at this point.")
@@ -29,8 +29,8 @@ func main() {
 
 	// Register an observer.
 
-	anObserver1 := &observer.ObserverNull{
-		Id: "Observer 1",
+	anObserver1 := &observer.NullObserver{
+		ID: "Observer 1",
 	}
 	err = aSubject.RegisterObserver(ctx, anObserver1)
 	if err != nil {
@@ -46,8 +46,8 @@ func main() {
 
 	// Register another observer.
 
-	anObserver2 := &observer.ObserverNull{
-		Id: "Observer 2",
+	anObserver2 := &observer.NullObserver{
+		ID: "Observer 2",
 	}
 	err = aSubject.RegisterObserver(ctx, anObserver2)
 	if err != nil {
@@ -104,7 +104,7 @@ func main() {
 		fmt.Print(err)
 	}
 
-	aGrpcServer := &grpcserver.GrpcServerImpl{
+	aGrpcServer := &grpcserver.SimpleGrpcServer{
 		Port:    8260,
 		Subject: aSubject,
 	}

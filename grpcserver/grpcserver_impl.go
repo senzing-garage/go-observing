@@ -16,8 +16,8 @@ import (
 // Types
 // ----------------------------------------------------------------------------
 
-// GrpcServerImpl is the default implementation of the GrpcServer interface.
-type GrpcServerImpl struct {
+// SimpleGrpcServer is the default implementation of the GrpcServer interface.
+type SimpleGrpcServer struct {
 	observerpb.UnimplementedObserverServer
 	Port          int
 	ServerOptions []grpc.ServerOption
@@ -34,7 +34,8 @@ The Serve method starts the gRPC server.
 Input
   - ctx: A context to control lifecycle.
 */
-func (subject *GrpcServerImpl) Serve(ctx context.Context) error {
+func (subject *SimpleGrpcServer) Serve(ctx context.Context) error {
+	_ = ctx
 
 	// Set up socket listener.
 
@@ -76,8 +77,9 @@ Output
   - Empty response
   - Error
 */
-func (subject *GrpcServerImpl) UpdateObserver(ctx context.Context, request *observerpb.UpdateObserverRequest) (*observerpb.UpdateObserverResponse, error) {
-	var err error = nil
+func (subject *SimpleGrpcServer) UpdateObserver(ctx context.Context, request *observerpb.UpdateObserverRequest) (*observerpb.UpdateObserverResponse, error) {
+	_ = ctx
+	var err error
 	if subject.Subject != nil {
 		err = subject.Subject.NotifyObservers(ctx, request.GetMessage())
 	}

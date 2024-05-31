@@ -11,10 +11,10 @@ import (
 // Types
 // ----------------------------------------------------------------------------
 
-// ObserverNull is a simple example of the Subject interface.
+// WhiteListObserver is a simple example of the Subject interface.
 // It is mainly used for testing.
-type ObserverWhiteList struct {
-	Id        string
+type WhiteListObserver struct {
+	ID        string
 	IsSilent  bool
 	WhiteList map[int]map[int]bool
 }
@@ -24,39 +24,39 @@ type ObserverWhiteList struct {
 // ----------------------------------------------------------------------------
 
 type MessageFormat struct {
-	SubjectId string `json:"subjectId"`
-	MessageId string `json:"messageId"`
+	SubjectID string `json:"subjectId"`
+	MessageID string `json:"messageId"`
 }
 
 // ----------------------------------------------------------------------------
 // Internal methods
 // ----------------------------------------------------------------------------
 
-func (observer *ObserverWhiteList) parseMessage(message string) (int, int, error) {
+func (observer *WhiteListObserver) parseMessage(message string) (int, int, error) {
 	var parsedMessage MessageFormat
 	err := json.Unmarshal([]byte(message), &parsedMessage)
 	if err != nil {
 		return 0, 0, err
 	}
-	subjectId, err := strconv.Atoi(parsedMessage.SubjectId)
+	subjectID, err := strconv.Atoi(parsedMessage.SubjectID)
 	if err != nil {
 		return 0, 0, err
 	}
-	messageId, err := strconv.Atoi(parsedMessage.MessageId)
+	messageID, err := strconv.Atoi(parsedMessage.MessageID)
 	if err != nil {
 		return 0, 0, err
 	}
-	return subjectId, messageId, err
+	return subjectID, messageID, err
 }
 
-func (observer *ObserverWhiteList) onWhiteList(message string) (bool, error) {
-	var err error = nil
+func (observer *WhiteListObserver) onWhiteList(message string) (bool, error) {
+	var err error
 	if !observer.IsSilent {
-		subjectId, messageId, err := observer.parseMessage(message)
+		subjectID, messageID, err := observer.parseMessage(message)
 		if err != nil {
 			return false, err
 		}
-		return observer.WhiteList[subjectId][messageId], err
+		return observer.WhiteList[subjectID][messageID], err
 	}
 	return false, err
 }
@@ -66,14 +66,15 @@ func (observer *ObserverWhiteList) onWhiteList(message string) (bool, error) {
 // ----------------------------------------------------------------------------
 
 /*
-The GetObserverId method returns the unique identifier of the observer.
+The GetObserverID method returns the unique identifier of the observer.
 Use by the subject to manage the list of Observers.
 
 Input
   - ctx: A context to control lifecycle.
 */
-func (observer *ObserverWhiteList) GetObserverId(ctx context.Context) string {
-	return observer.Id
+func (observer *WhiteListObserver) GetObserverID(ctx context.Context) string {
+	_ = ctx
+	return observer.ID
 }
 
 /*
@@ -84,15 +85,16 @@ Input
   - ctx: A context to control lifecycle.
   - message: The string to propagate to all registered Observers.
 */
-func (observer *ObserverWhiteList) UpdateObserver(ctx context.Context, message string) {
+func (observer *WhiteListObserver) UpdateObserver(ctx context.Context, message string) {
+	_ = ctx
 	if !observer.IsSilent {
 		isOnWhiteList, err := observer.onWhiteList(message)
 		if err != nil {
-			fmt.Printf("Error: Observer: %s;  Message: %s; Error: %v\n", observer.Id, message, err)
+			fmt.Printf("Error: Observer: %s;  Message: %s; Error: %v\n", observer.ID, message, err)
 
 		}
 		if isOnWhiteList {
-			fmt.Printf("Observer: %s;  Message: %s\n", observer.Id, message)
+			fmt.Printf("Observer: %s;  Message: %s\n", observer.ID, message)
 		}
 	}
 }
