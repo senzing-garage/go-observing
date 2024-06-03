@@ -13,20 +13,20 @@ import (
 // Examples for godoc documentation
 // ----------------------------------------------------------------------------
 
-//func ExampleSubjectImpl_HasObservers() {
-//	// For more information, visit https://github.com/senzing-garage/go-observing/blob/main/subject/subject_test.go
-//	ctx := context.TODO()
-//	subject := &SubjectImpl{}
-//	fmt.Print(subject.HasObservers(ctx))
-//	// Output: false
-//}
-
-func ExampleSubjectImpl_RegisterObserver() {
+func ExampleSimpleSubject_HasObservers() {
 	// For more information, visit https://github.com/senzing-garage/go-observing/blob/main/subject/subject_test.go
 	ctx := context.TODO()
-	subject := &SubjectImpl{}
-	observer := &observer.ObserverNull{
-		Id: "Observer 1",
+	subject := &SimpleSubject{}
+	fmt.Print(subject.HasObservers(ctx))
+	// Output: false
+}
+
+func ExampleSimpleSubject_RegisterObserver() {
+	// For more information, visit https://github.com/senzing-garage/go-observing/blob/main/subject/subject_test.go
+	ctx := context.TODO()
+	subject := &SimpleSubject{}
+	observer := &observer.NullObserver{
+		ID: "Observer 1",
 	}
 	err := subject.RegisterObserver(ctx, observer)
 	if err != nil {
@@ -35,10 +35,10 @@ func ExampleSubjectImpl_RegisterObserver() {
 	// Output:
 }
 
-func ExampleSubjectImpl_NotifyObservers() {
+func ExampleSimpleSubject_NotifyObservers() {
 	// For more information, visit https://github.com/senzing-garage/go-observing/blob/main/subject/subject_test.go
 	ctx := context.TODO()
-	subject := &SubjectImpl{}
+	subject := &SimpleSubject{}
 	err := subject.NotifyObservers(ctx, "Message 1")
 	if err != nil {
 		fmt.Print(err)
@@ -46,12 +46,12 @@ func ExampleSubjectImpl_NotifyObservers() {
 	// Output:
 }
 
-func ExampleSubjectImpl_UnregisterObserver() {
+func ExampleSimpleSubject_UnregisterObserver() {
 	// For more information, visit https://github.com/senzing-garage/go-observing/blob/main/subject/subject_test.go
 	ctx := context.TODO()
-	subject := &SubjectImpl{}
-	observer := &observer.ObserverNull{
-		Id: "Observer 1",
+	subject := &SimpleSubject{}
+	observer := &observer.NullObserver{
+		ID: "Observer 1",
 	}
 	err := subject.UnregisterObserver(ctx, observer)
 	if err != nil {

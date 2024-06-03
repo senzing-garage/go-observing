@@ -28,12 +28,12 @@ func TestMain(m *testing.M) {
 }
 
 func setup() error {
-	var err error = nil
+	var err error
 	return err
 }
 
 func teardown() error {
-	var err error = nil
+	var err error
 	return err
 }
 
@@ -42,15 +42,16 @@ func teardown() error {
 // ----------------------------------------------------------------------------
 
 func TestNotify(test *testing.T) {
+	_ = test
 	ctx := context.TODO()
-	observers := &subject.SubjectImpl{}
+	observers := &subject.SimpleSubject{}
 	origin := "Machine: 6 Process: Rover"
-	subjectId := 1
-	messageId := 2
-	var err error = nil
+	subjectID := 1
+	messageID := 2
+	var err error
 	details := map[string]string{
 		"data": "aData",
 		"time": "aTime",
 	}
-	Notify(ctx, observers, origin, subjectId, messageId, err, details)
+	Notify(ctx, observers, origin, subjectID, messageID, err, details)
 }

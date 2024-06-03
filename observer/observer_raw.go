@@ -9,10 +9,10 @@ import (
 // Types
 // ----------------------------------------------------------------------------
 
-// ObserverNull is a simple example of the Subject interface.
+// RawObserver is a simple example of the Subject interface.
 // It is mainly used for testing.
-type ObserverRaw struct {
-	Id       string
+type RawObserver struct {
+	ID       string
 	IsSilent bool
 }
 
@@ -21,14 +21,15 @@ type ObserverRaw struct {
 // ----------------------------------------------------------------------------
 
 /*
-The GetObserverId method returns the unique identifier of the observer.
+The GetObserverID method returns the unique identifier of the observer.
 Use by the subject to manage the list of Observers.
 
 Input
   - ctx: A context to control lifecycle.
 */
-func (observer *ObserverRaw) GetObserverId(ctx context.Context) string {
-	return observer.Id
+func (observer *RawObserver) GetObserverID(ctx context.Context) string {
+	_ = ctx
+	return observer.ID
 }
 
 /*
@@ -39,7 +40,8 @@ Input
   - ctx: A context to control lifecycle.
   - message: The string to propagate to all registered Observers.
 */
-func (observer *ObserverRaw) UpdateObserver(ctx context.Context, message string) {
+func (observer *RawObserver) UpdateObserver(ctx context.Context, message string) {
+	_ = ctx
 	if !observer.IsSilent {
 		fmt.Println(message)
 	}

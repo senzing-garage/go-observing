@@ -11,37 +11,37 @@ import (
 // Examples for godoc documentation
 // ----------------------------------------------------------------------------
 
-func ExampleObserverNull_GetObserverId() {
+func ExampleNullObserver_GetObserverID() {
 	// For more information, visit https://github.com/senzing-garage/go-observing/blob/main/observer/observer_examples_test.go
 	ctx := context.TODO()
-	observer := &ObserverNull{
-		Id: "1",
+	observer := &NullObserver{
+		ID: "1",
 	}
-	fmt.Print(observer.GetObserverId(ctx))
+	fmt.Print(observer.GetObserverID(ctx))
 	// Output: 1
 }
 
-func ExampleObserverNull_UpdateObserver() {
+func ExampleNullObserver_UpdateObserver() {
 	// For more information, visit https://github.com/senzing-garage/go-observing/blob/main/observer/observer_test.go
 	ctx := context.TODO()
-	observer := &ObserverNull{
-		Id: "1",
+	observer := &NullObserver{
+		ID: "1",
 	}
 	observer.UpdateObserver(ctx, "A message")
 	// Output: Observer: 1;  Message: A message
 }
 
-func ExampleObserverWhiteList_GetObserverId() {
+func ExampleWhiteListObserver_GetObserverID() {
 	// For more information, visit https://github.com/senzing-garage/go-observing/blob/main/observer/observer_test.go
 	ctx := context.TODO()
-	observer := &ObserverWhiteList{
-		Id: "1",
+	observer := &WhiteListObserver{
+		ID: "1",
 	}
-	fmt.Print(observer.GetObserverId(ctx))
+	fmt.Print(observer.GetObserverID(ctx))
 	// Output: 1
 }
 
-func ExampleObserverWhiteList_UpdateObserver() {
+func ExampleWhiteListObserver_UpdateObserver() {
 	// For more information, visit https://github.com/senzing-garage/go-observing/blob/main/observer/observer_test.go
 	ctx := context.TODO()
 	message11 := `{"subjectId":"1", "messageId": "1"}`
@@ -50,8 +50,8 @@ func ExampleObserverWhiteList_UpdateObserver() {
 	message22 := `{"subjectId":"2", "messageId": "2"}`
 	message31 := `{"subjectId":"3", "messageId": "1"}`
 
-	observer := &ObserverWhiteList{
-		Id: "1",
+	observer := &WhiteListObserver{
+		ID: "1",
 		WhiteList: map[int]map[int]bool{
 			1: {
 				1: true,

@@ -15,15 +15,15 @@ import (
 func ExampleNotify() {
 	// For more information, visit https://github.com/senzing-garage/go-observing/blob/main/notifier/notifier_examples_test.go
 	ctx := context.TODO()
-	observers := &subject.SubjectImpl{}
+	observers := &subject.SimpleSubject{}
 	origin := "Machine: 6 Process: Rover"
-	subjectId := 1
-	messageId := 2
-	var err error = nil
+	subjectID := 1
+	messageID := 2
+	var err error
 	details := map[string]string{
 		"data": "aData",
 		"time": "aTime",
 	}
-	Notify(ctx, observers, origin, subjectId, messageId, err, details)
+	Notify(ctx, observers, origin, subjectID, messageID, err, details)
 	// Output:
 }

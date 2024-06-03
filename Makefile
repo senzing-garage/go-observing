@@ -27,6 +27,12 @@ GO_OSARCH = $(subst /, ,$@)
 GO_OS = $(word 1, $(GO_OSARCH))
 GO_ARCH = $(word 2, $(GO_OSARCH))
 
+# Conditional assignment. ('?=')
+# Can be overridden with "export"
+# Example: "export LD_LIBRARY_PATH=/path/to/my/senzing-garage/g2/lib"
+
+GOBIN ?= $(shell go env GOPATH)/bin
+
 # Export environment variables.
 
 .EXPORT_ALL_VARIABLES:
@@ -52,6 +58,12 @@ hello-world: hello-world-osarch-specific
 # -----------------------------------------------------------------------------
 # Dependency management
 # -----------------------------------------------------------------------------
+
+.PHONY: make-dependencies
+make-dependencies:
+	@go install github.com/vladopajic/go-test-coverage/v2@latest
+	@curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(shell go env GOPATH)/bin v1.58.1
+
 
 .PHONY: dependencies
 dependencies:
@@ -79,6 +91,28 @@ build: build-osarch-specific
 
 .PHONY: test
 test: test-osarch-specific
+
+# -----------------------------------------------------------------------------
+# Coverage
+# -----------------------------------------------------------------------------
+
+.PHONY: coverage
+coverage: coverage-osarch-specific
+
+
+.PHONY: check-coverage
+check-coverage: export SENZING_LOG_LEVEL=TRACE
+check-coverage:
+	go test -coverprofile=./cover.out -p 1 -covermode=atomic -coverpkg=./... ./...
+	${GOBIN}/go-test-coverage --config=./.testcoverage.yml
+
+# -----------------------------------------------------------------------------
+# Lint
+# -----------------------------------------------------------------------------
+
+.PHONY: run-golangci-lint
+run-golangci-lint:
+	${GOBIN}/golangci-lint run --config=.github/linters/.golangci.yml
 
 # -----------------------------------------------------------------------------
 # Run

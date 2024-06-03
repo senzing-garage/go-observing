@@ -11,8 +11,8 @@ import (
 // Types
 // ----------------------------------------------------------------------------
 
-// SubjectImpl is the default implementation of the Subject interface.
-type SubjectImpl struct {
+// SimpleSubject is the default implementation of the Subject interface.
+type SimpleSubject struct {
 	observerList []observer.Observer
 }
 
@@ -27,9 +27,10 @@ var lock = sync.RWMutex{}
 // ----------------------------------------------------------------------------
 
 func contains(ctx context.Context, haystack []observer.Observer, needle observer.Observer) bool {
-	needleId := needle.GetObserverId(ctx)
+	_ = ctx
+	needleID := needle.GetObserverID(ctx)
 	for _, value := range haystack {
-		if value.GetObserverId(ctx) == needleId {
+		if value.GetObserverID(ctx) == needleID {
 			return true
 		}
 	}
@@ -37,10 +38,10 @@ func contains(ctx context.Context, haystack []observer.Observer, needle observer
 }
 
 func removeFromSlice(ctx context.Context, observerList []observer.Observer, observerToRemove observer.Observer) []observer.Observer {
-	removeId := observerToRemove.GetObserverId(ctx)
+	removeID := observerToRemove.GetObserverID(ctx)
 	observerListLength := len(observerList)
 	for i, observer := range observerList {
-		if observer.GetObserverId(ctx) == removeId {
+		if observer.GetObserverID(ctx) == removeID {
 			observerList[observerListLength-1], observerList[i] = observerList[i], observerList[observerListLength-1]
 			return observerList[:observerListLength-1]
 		}
@@ -59,7 +60,8 @@ The caller will not have access to the type-struct's internal slice of observers
 Input
   - ctx: A context to control lifecycle.
 */
-func (subject *SubjectImpl) GetObservers(ctx context.Context) []observer.Observer {
+func (subject *SimpleSubject) GetObservers(ctx context.Context) []observer.Observer {
+	_ = ctx
 	result := make([]observer.Observer, len(subject.observerList))
 	copy(result, subject.observerList)
 	return result
@@ -73,7 +75,8 @@ nothing observe it.
 Input
   - ctx: A context to control lifecycle.
 */
-func (subject *SubjectImpl) HasObservers(ctx context.Context) bool {
+func (subject *SimpleSubject) HasObservers(ctx context.Context) bool {
+	_ = ctx
 	return len(subject.observerList) > 0
 }
 
@@ -85,8 +88,8 @@ Input
   - ctx: A context to control lifecycle.
   - message: The string to propagate to all registered Observers.
 */
-func (subject *SubjectImpl) NotifyObservers(ctx context.Context, message string) error {
-	var err error = nil
+func (subject *SimpleSubject) NotifyObservers(ctx context.Context, message string) error {
+	var err error
 	for _, observer := range subject.observerList {
 		go observer.UpdateObserver(ctx, message)
 	}
@@ -101,8 +104,8 @@ Input
   - ctx: A context to control lifecycle.
   - observer: A component wanting to listen to events.
 */
-func (subject *SubjectImpl) RegisterObserver(ctx context.Context, observer observer.Observer) error {
-	var err error = nil
+func (subject *SimpleSubject) RegisterObserver(ctx context.Context, observer observer.Observer) error {
+	var err error
 	if observer != nil {
 		lock.RLock()
 		defer lock.RUnlock()
@@ -121,8 +124,8 @@ Input
   - ctx: A context to control lifecycle.
   - observer: A component no longer wanting to listen to events.
 */
-func (subject *SubjectImpl) UnregisterObserver(ctx context.Context, observer observer.Observer) error {
-	var err error = nil
+func (subject *SimpleSubject) UnregisterObserver(ctx context.Context, observer observer.Observer) error {
+	var err error
 	if observer != nil {
 		lock.RLock()
 		defer lock.RUnlock()

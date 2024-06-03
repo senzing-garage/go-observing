@@ -11,10 +11,10 @@ import (
 // Types
 // ----------------------------------------------------------------------------
 
-// ObserverGrpc sends the observed message to a Grpc server.
-type ObserverGrpc struct {
+// GrpcObserver sends the observed message to a Grpc server.
+type GrpcObserver struct {
 	GrpcClient observerpb.ObserverClient
-	Id         string
+	ID         string
 }
 
 // ----------------------------------------------------------------------------
@@ -22,14 +22,15 @@ type ObserverGrpc struct {
 // ----------------------------------------------------------------------------
 
 /*
-The GetObserverId method returns the unique identifier of the observer.
+The GetObserverID method returns the unique identifier of the observer.
 Use by the subject to manage the list of Observers.
 
 Input
   - ctx: A context to control lifecycle.
 */
-func (observer *ObserverGrpc) GetObserverId(ctx context.Context) string {
-	return observer.Id
+func (observer *GrpcObserver) GetObserverID(ctx context.Context) string {
+	_ = ctx
+	return observer.ID
 }
 
 /*
@@ -40,14 +41,14 @@ Input
   - ctx: A context to control lifecycle.
   - message: The string to propagate to all registered Observers.
 */
-func (observer *ObserverGrpc) UpdateObserver(ctx context.Context, message string) {
+func (observer *GrpcObserver) UpdateObserver(ctx context.Context, message string) {
 	if observer.GrpcClient != nil {
 		request := observerpb.UpdateObserverRequest{
 			Message: message,
 		}
 		_, err := observer.GrpcClient.UpdateObserver(ctx, &request)
 		if err != nil {
-			log.Printf("Observer: %s;  Message: %s; Error: %v\n", observer.Id, message, err)
+			log.Printf("Observer: %s;  Message: %s; Error: %v\n", observer.ID, message, err)
 		}
 	}
 }
