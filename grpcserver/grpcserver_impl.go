@@ -22,6 +22,7 @@ type SimpleGrpcServer struct {
 	Port          int
 	ServerOptions []grpc.ServerOption
 	Subject       subject.Subject
+	server        *grpc.Server
 }
 
 // ----------------------------------------------------------------------------
@@ -34,30 +35,42 @@ The Serve method starts the gRPC server.
 Input
   - ctx: A context to control lifecycle.
 */
-func (subject *SimpleGrpcServer) Serve(ctx context.Context) error {
+func (grpcServer *SimpleGrpcServer) GracefulStop(ctx context.Context) error {
+	_ = ctx
+	grpcServer.server.GracefulStop()
+	return nil
+}
+
+/*
+The Serve method starts the gRPC server.
+
+Input
+  - ctx: A context to control lifecycle.
+*/
+func (grpcServer *SimpleGrpcServer) Serve(ctx context.Context) error {
 	_ = ctx
 
 	// Set up socket listener.
 
-	listener, err := net.Listen("tcp", fmt.Sprintf(":%d", subject.Port))
+	listener, err := net.Listen("tcp", fmt.Sprintf(":%d", grpcServer.Port))
 	if err != nil {
-		log.Printf("Port: %d; Error: %v\n", subject.Port, err)
+		log.Printf("Port: %d; Error: %v\n", grpcServer.Port, err)
 		return err
 	}
-	log.Printf("Observer gRPC service running on port: %d\n", subject.Port)
+	log.Printf("Observer gRPC service running on port: %d\n", grpcServer.Port)
 
 	// Create server.
 
-	aGrpcServer := grpc.NewServer(subject.ServerOptions...)
-	observerpb.RegisterObserverServer(aGrpcServer, subject)
+	grpcServer.server = grpc.NewServer(grpcServer.ServerOptions...)
+	observerpb.RegisterObserverServer(grpcServer.server, grpcServer)
 
 	// Enable reflection.
 
-	reflection.Register(aGrpcServer)
+	reflection.Register(grpcServer.server)
 
 	// Run server.
 
-	err = aGrpcServer.Serve(listener)
+	err = grpcServer.server.Serve(listener)
 	if err != nil {
 		log.Println(err)
 	}
@@ -77,11 +90,11 @@ Output
   - Empty response
   - Error
 */
-func (subject *SimpleGrpcServer) UpdateObserver(ctx context.Context, request *observerpb.UpdateObserverRequest) (*observerpb.UpdateObserverResponse, error) {
+func (grpcServer *SimpleGrpcServer) UpdateObserver(ctx context.Context, request *observerpb.UpdateObserverRequest) (*observerpb.UpdateObserverResponse, error) {
 	_ = ctx
 	var err error
-	if subject.Subject != nil {
-		err = subject.Subject.NotifyObservers(ctx, request.GetMessage())
+	if grpcServer.Subject != nil {
+		err = grpcServer.Subject.NotifyObservers(ctx, request.GetMessage())
 	}
 	response := observerpb.UpdateObserverResponse{}
 	return &response, err

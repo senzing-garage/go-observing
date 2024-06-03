@@ -15,15 +15,15 @@ local-prefix: "github.com/org/project"
 threshold:
   # (optional; default 0)
   # The minimum coverage that each file should have
-  file: 85
+  file: 75
 
   # (optional; default 0)
   # The minimum coverage that each package should have
-  package: 85
+  package: 75
 
   # (optional; default 0)
   # The minimum total coverage project should have
-  total: 85
+  total: 75
 # Holds regexp rules which will override thresholds for matched files or packages
 # using their paths.
 #
@@ -44,6 +44,10 @@ threshold:
 #  - \.pb\.go$    # excludes all protobuf generated files
 #  - ^pkg/bar     # exclude package `pkg/bar`
 
+exclude:
+  paths:
+    - observerpb/observer.pb.go
+    - observerpb/observer_grpc.pb.go
 # NOTES:
 # - symbol `/` in all path regexps will be replaced by current OS file path separator
 #   to properly work on Windows

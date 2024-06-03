@@ -9,6 +9,7 @@ import (
 // ----------------------------------------------------------------------------
 
 type Interface interface {
+	GracefulStop(ctx context.Context) error
 	Serve(ctx context.Context) error
 }
 

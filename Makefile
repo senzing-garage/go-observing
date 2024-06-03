@@ -103,7 +103,7 @@ coverage: coverage-osarch-specific
 .PHONY: check-coverage
 check-coverage: export SENZING_LOG_LEVEL=TRACE
 check-coverage:
-	go test ./... -coverprofile=./cover.out -covermode=atomic -coverpkg=./...
+	go test -coverprofile=./cover.out -p 1 -covermode=atomic -coverpkg=./... ./...
 	${GOBIN}/go-test-coverage --config=./.testcoverage.yml
 
 # -----------------------------------------------------------------------------

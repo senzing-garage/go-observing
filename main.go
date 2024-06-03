@@ -5,11 +5,18 @@ package main
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/senzing-garage/go-observing/grpcserver"
 	"github.com/senzing-garage/go-observing/observer"
 	"github.com/senzing-garage/go-observing/subject"
 )
+
+func printError(err error) {
+	if err != nil {
+		fmt.Print(err)
+	}
+}
 
 func main() {
 	ctx := context.TODO()
@@ -23,9 +30,7 @@ func main() {
 	}
 
 	err := aSubject.NotifyObservers(ctx, "Error: No observers registered, yet.")
-	if err != nil {
-		fmt.Print(err)
-	}
+	printError(err)
 
 	// Register an observer.
 
@@ -33,16 +38,12 @@ func main() {
 		ID: "Observer 1",
 	}
 	err = aSubject.RegisterObserver(ctx, anObserver1)
-	if err != nil {
-		fmt.Print(err)
-	}
+	printError(err)
 
 	// Notify.
 
 	err = aSubject.NotifyObservers(ctx, "Message 1")
-	if err != nil {
-		fmt.Print(err)
-	}
+	printError(err)
 
 	// Register another observer.
 
@@ -50,48 +51,36 @@ func main() {
 		ID: "Observer 2",
 	}
 	err = aSubject.RegisterObserver(ctx, anObserver2)
-	if err != nil {
-		fmt.Print(err)
-	}
+	printError(err)
 
 	// Notify.
 
 	if aSubject.HasObservers(ctx) {
 		err = aSubject.NotifyObservers(ctx, "Message 2")
-		if err != nil {
-			fmt.Print(err)
-		}
+		printError(err)
 	}
 
 	// Remove observer.
 
 	err = aSubject.UnregisterObserver(ctx, anObserver2)
-	if err != nil {
-		fmt.Print(err)
-	}
+	printError(err)
 
 	// Notify.
 
 	if aSubject.HasObservers(ctx) {
 		err = aSubject.NotifyObservers(ctx, "Message 3")
-		if err != nil {
-			fmt.Print(err)
-		}
+		printError(err)
 	}
 
 	// Remove observer.
 
 	err = aSubject.UnregisterObserver(ctx, anObserver1)
-	if err != nil {
-		fmt.Print(err)
-	}
+	printError(err)
 
 	// Notify.
 
 	err = aSubject.NotifyObservers(ctx, "Error: No observers registered, yet.")
-	if err != nil {
-		fmt.Print(err)
-	}
+	printError(err)
 
 	if aSubject.HasObservers(ctx) {
 		fmt.Print("Error: All observers have been removed.")
@@ -100,16 +89,20 @@ func main() {
 	// Run an Observer gRPC service.
 
 	err = aSubject.RegisterObserver(ctx, anObserver1)
-	if err != nil {
-		fmt.Print(err)
-	}
+	printError(err)
 
 	aGrpcServer := &grpcserver.SimpleGrpcServer{
 		Port:    8260,
 		Subject: aSubject,
 	}
-	err = aGrpcServer.Serve(ctx)
-	if err != nil {
-		fmt.Print(err)
-	}
+
+	go func() {
+		err = aGrpcServer.Serve(ctx)
+		printError(err)
+	}()
+
+	time.Sleep(5 * time.Second)
+
+	err = aGrpcServer.GracefulStop(ctx)
+	printError(err)
 }
