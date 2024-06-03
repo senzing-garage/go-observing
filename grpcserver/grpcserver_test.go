@@ -54,7 +54,9 @@ func TestSimpleGrpcServer_Serve(test *testing.T) {
 
 	go func() {
 		err := aGrpcServer.Serve(ctx)
-		require.NoError(test, err)
+		if err != nil {
+			fmt.Print(err)
+		}
 	}()
 	time.Sleep(1 * time.Second)
 

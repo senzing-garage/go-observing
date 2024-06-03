@@ -8,7 +8,7 @@ import (
 // Types
 // ----------------------------------------------------------------------------
 
-type Interface interface {
+type GrpcServer interface {
 	GracefulStop(ctx context.Context) error
 	Serve(ctx context.Context) error
 }

@@ -18,11 +18,11 @@ import (
 
 // SimpleGrpcServer is the default implementation of the GrpcServer interface.
 type SimpleGrpcServer struct {
-	observerpb.UnimplementedObserverServer
 	Port          int
 	ServerOptions []grpc.ServerOption
 	Subject       subject.Subject
-	server        *grpc.Server
+	observerpb.UnimplementedObserverServer
+	server *grpc.Server
 }
 
 // ----------------------------------------------------------------------------

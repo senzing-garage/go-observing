@@ -10,6 +10,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -
 
+## [0.3.2] - 2024-06-03
+
+### Added in 0.3.2
+
+- grpcserver.Interface `GracefulStop()`
+
+### Changed in 0.3.2
+
+- Changed `GrpcServerImpl` to `SimpleGrpcServer`
+
 ## [0.3.1] - 2024-04-19
 
 ### Changed in 0.3.1
