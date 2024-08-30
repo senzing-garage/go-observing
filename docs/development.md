@@ -62,7 +62,7 @@ These are "one-time tasks" which may already have been completed.
 
     ```
 
-## Developing gRPC
+## Developing gRPC client and server SDK
 
 The following instructions were used to create a
 [go module] and other [example generated source code].
