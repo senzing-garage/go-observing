@@ -81,7 +81,8 @@ dependencies:
 # -----------------------------------------------------------------------------
 
 .PHONY: setup
-setup: setup-osarch-specific
+setup: generate setup-osarch-specific
+
 
 # -----------------------------------------------------------------------------
 # Generate code
