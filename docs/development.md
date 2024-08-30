@@ -62,17 +62,23 @@ These are "one-time tasks" which may already have been completed.
 
     ```
 
-### Developing gRPC
+## Developing gRPC
 
 The following instructions were used to create a
 [go module] and other [example generated source code].
 
-#### Go
+1. Follow the [Go Quick start] tutorial to prepare an environment.
 
-1. Follow the
-   [Go Quick start](https://grpc.io/docs/languages/go/quickstart/)
-   tutorial to prepare an environment.
-1. [Generating client and server code](https://grpc.io/docs/languages/go/basics/#generating-client-and-server-code).
+1. xxx
+   Example:
+
+    ```console
+    cd ${GIT_REPOSITORY_DIR}
+    make generate
+
+    ```
+
+1. [Generating client and server code].
    Example:
 
     ```console
@@ -96,9 +102,9 @@ The following instructions were used to create a
         - protocol buffer code to populate, serialize, and retrieve request and response message types.
         - In other words, it manages message content, not the network traffic.
 1. **References:**
-    1. [gRPC Documents for Go](https://grpc.io/docs/languages/go/)
-        1. [Go Quick start](https://grpc.io/docs/languages/go/quickstart/)
-    1. [Thread safety](https://grpc.io/docs/languages/go/generated-code/)
+    1. [gRPC Documents for Go]
+        1. [Go Quick start]
+    1. [Thread safety]
 
 ## Test
 
@@ -170,3 +176,7 @@ Example:
 [testcoverage.yaml]: ../.github/coverage/testcoverage.yaml
 [go module]: ../grpc
 [example generated source code]: example_generated_source_code
+[gRPC Documents for Go]: https://grpc.io/docs/languages/go/
+[Go Quick start]: https://grpc.io/docs/languages/go/quickstart/
+[Thread safety]: https://grpc.io/docs/languages/go/generated-code/
+[Generating client and server code]: <https://grpc.io/docs/languages/go/basics/#generating-client-and-server-code>)
