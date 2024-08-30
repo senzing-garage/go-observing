@@ -1,33 +1,74 @@
 # go-observing development
 
-## Install Go
+The following instructions are useful during development.
 
-1. See Go's [Download and install](https://go.dev/doc/install)
+**Note:** This has been tested on Linux and Darwin/macOS.
+It has not been tested on Windows.
+
+## Prerequisites for development
+
+:thinking: The following tasks need to be complete before proceeding.
+These are "one-time tasks" which may already have been completed.
+
+1. The following software programs need to be installed:
+    1. [git]
+    1. [make]
+    1. [docker]
+    1. [go]
 
 ## Install Git repository
 
 1. Identify git repository.
 
     ```console
-    export GIT_ACCOUNT=senzing
+    export GIT_ACCOUNT=senzing-garage
     export GIT_REPOSITORY=go-observing
     export GIT_ACCOUNT_DIR=~/${GIT_ACCOUNT}.git
     export GIT_REPOSITORY_DIR="${GIT_ACCOUNT_DIR}/${GIT_REPOSITORY}"
 
     ```
 
-1. Using the environment variables values just set, follow steps in
-   [clone-repository](https://github.com/senzing-garage/knowledge-base/blob/main/HOWTO/clone-repository.md) to install the Git repository.
+1. Using the environment variables values just set, follow
+   steps in [clone-repository] to install the Git repository.
+
+## Dependencies
+
+1. A one-time command to install dependencies needed for `make` targets.
+   Example:
+
+    ```console
+    cd ${GIT_REPOSITORY_DIR}
+    make dependencies-for-development
+
+    ```
+
+1. Install dependencies needed for [Go] code.
+   Example:
+
+    ```console
+    cd ${GIT_REPOSITORY_DIR}
+    make dependencies
+
+    ```
+
+## Lint
+
+1. Run linting.
+   Example:
+
+    ```console
+    cd ${GIT_REPOSITORY_DIR}
+    make lint
+
+    ```
 
 ### Developing gRPC
 
 The following instructions were used to create a
-[go module](../grpc) and other
-[example generated source code](example_generated_source_code).
+[go module] and other [example generated source code].
 
 #### Go
 
-1. [Clone repository](#clone-repository).
 1. Follow the
    [Go Quick start](https://grpc.io/docs/languages/go/quickstart/)
    tutorial to prepare an environment.
@@ -59,12 +100,73 @@ The following instructions were used to create a
         1. [Go Quick start](https://grpc.io/docs/languages/go/quickstart/)
     1. [Thread safety](https://grpc.io/docs/languages/go/generated-code/)
 
-### Test
+## Test
 
 1. Run tests.
+   Example:
 
     ```console
     cd ${GIT_REPOSITORY_DIR}
-    make test
+    make clean setup test
 
     ```
+
+## Coverage
+
+Create a code coverage map.
+
+1. Run Go tests.
+   Example:
+
+    ```console
+    cd ${GIT_REPOSITORY_DIR}
+    make clean setup coverage
+
+    ```
+
+   A web-browser will show the results of the coverage.
+   The goal is to have over 80% coverage.
+   Anything less needs to be reflected in [testcoverage.yaml].
+
+## Documentation
+
+1. View documentation.
+   Example:
+
+    ```console
+    cd ${GIT_REPOSITORY_DIR}
+    make clean documentation
+
+    ```
+
+1. If a web page doesn't appear, visit [localhost:6060].
+1. Senzing documentation will be in the "Third party" section.
+   `github.com` > `senzing-garage` > `go-observing`
+
+1. When a versioned release is published with a `v0.0.0` format tag,
+the reference can be found by clicking on the following badge at the top of the README.md page.
+Example:
+
+    [![Go Reference Badge]][Go Reference]
+
+1. To stop the `godoc` server, run
+
+    ```console
+    cd ${GIT_REPOSITORY_DIR}
+    make clean
+
+    ```
+
+## References
+
+[clone-repository]: https://github.com/senzing-garage/knowledge-base/blob/main/HOWTO/clone-repository.md
+[docker]: https://github.com/senzing-garage/knowledge-base/blob/main/WHATIS/docker.md
+[git]: https://github.com/senzing-garage/knowledge-base/blob/main/WHATIS/git.md
+[Go Reference Badge]: https://pkg.go.dev/badge/github.com/senzing-garage/template-go.svg
+[Go Reference]: https://pkg.go.dev/github.com/senzing-garage/template-go
+[go]: https://github.com/senzing-garage/knowledge-base/blob/main/WHATIS/go.md
+[localhost:6060]: http://localhost:6060/pkg/github.com/senzing-garage/template-go/
+[make]: https://github.com/senzing-garage/knowledge-base/blob/main/WHATIS/make.md
+[testcoverage.yaml]: ../.github/coverage/testcoverage.yaml
+[go module]: ../grpc
+[example generated source code]: example_generated_source_code
