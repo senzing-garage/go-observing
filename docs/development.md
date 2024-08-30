@@ -69,7 +69,7 @@ The following instructions were used to create a
 
 1. Follow the [Go Quick start] tutorial to prepare an environment.
 
-1. xxx
+1. Generate gRPC client/server SDK.
    Example:
 
     ```console
