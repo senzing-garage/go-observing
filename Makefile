@@ -88,10 +88,10 @@ setup: setup-osarch-specific
 # -----------------------------------------------------------------------------
 
 .PHONY: generate
-generate: 
-	OUTPUT_DIR=$${MAKEFILE_DIRECTORY}/observerpb; \
-	mkdir -p $${OUTPUT_DIR}; \
-    protoc --go_out=${OUTPUT_DIR} --go_opt=paths=source_relative --go-grpc_out=${OUTPUT_DIR} --go-grpc_opt=paths=source_relative observer.proto
+generate:
+	@OUTPUT_DIR=$${MAKEFILE_DIRECTORY}/observerpb; \
+		mkdir -p $${OUTPUT_DIR}; \
+		protoc --go_out=$${OUTPUT_DIR} --go_opt=paths=source_relative --go-grpc_out=$${OUTPUT_DIR} --go-grpc_opt=paths=source_relative observer.proto
 
 # -----------------------------------------------------------------------------
 # Lint

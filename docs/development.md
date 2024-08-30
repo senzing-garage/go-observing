@@ -69,7 +69,7 @@ The following instructions were used to create a
 
 1. Follow the [Go Quick start] tutorial to prepare an environment.
 
-1. Generate gRPC client/server SDK.
+1. [Generating client and server code].
    Example:
 
     ```console
@@ -78,30 +78,14 @@ The following instructions were used to create a
 
     ```
 
-1. [Generating client and server code].
-   Example:
-
-    ```console
-    export SENZING_OUTPUT_DIR=${GIT_REPOSITORY_DIR}/observerpb
-    mkdir -p ${SENZING_OUTPUT_DIR}
-    protoc \
-    --proto_path=${GIT_REPOSITORY_DIR}/ \
-    --go_out=${SENZING_OUTPUT_DIR} \
-    --go_opt=paths=source_relative \
-    --go-grpc_out=${SENZING_OUTPUT_DIR} \
-    --go-grpc_opt=paths=source_relative \
-    ${GIT_REPOSITORY_DIR}/observer.proto
-
-    ```
-
-    1. In `${SENZING_OUTPUT_DIR}`, files *with* `_grpc.` in the filename contain the following:
+    1. In `${GIT_REPOSITORY_DIR}/observerpb`, files *with* `_grpc.` in the filename contain the following:
         - Interface types (or stubs) for clients to call with the methods defined in the services.
         - Interface types for servers to implement, also with the methods defined in the services.
         - In other words, its the "gRPC" code that handles the network traffic, not the message content.
-    1. In `${SENZING_OUTPUT_DIR}`, files *without* `_grpc.` in the filename contain the following:
+    1. In `${GIT_REPOSITORY_DIR}/observerpb`, files *without* `_grpc.` in the filename contain the following:
         - protocol buffer code to populate, serialize, and retrieve request and response message types.
         - In other words, it manages message content, not the network traffic.
-1. **References:**
+1. References:
     1. [gRPC Documents for Go]
         1. [Go Quick start]
     1. [Thread safety]
@@ -167,16 +151,16 @@ Example:
 
 [clone-repository]: https://github.com/senzing-garage/knowledge-base/blob/main/HOWTO/clone-repository.md
 [docker]: https://github.com/senzing-garage/knowledge-base/blob/main/WHATIS/docker.md
+[example generated source code]: example_generated_source_code
+[Generating client and server code]: https://grpc.io/docs/languages/go/basics/#generating-client-and-server-code
 [git]: https://github.com/senzing-garage/knowledge-base/blob/main/WHATIS/git.md
+[go module]: ../grpc
+[Go Quick start]: https://grpc.io/docs/languages/go/quickstart/
 [Go Reference Badge]: https://pkg.go.dev/badge/github.com/senzing-garage/template-go.svg
 [Go Reference]: https://pkg.go.dev/github.com/senzing-garage/template-go
 [go]: https://github.com/senzing-garage/knowledge-base/blob/main/WHATIS/go.md
+[gRPC Documents for Go]: https://grpc.io/docs/languages/go/
 [localhost:6060]: http://localhost:6060/pkg/github.com/senzing-garage/template-go/
 [make]: https://github.com/senzing-garage/knowledge-base/blob/main/WHATIS/make.md
 [testcoverage.yaml]: ../.github/coverage/testcoverage.yaml
-[go module]: ../grpc
-[example generated source code]: example_generated_source_code
-[gRPC Documents for Go]: https://grpc.io/docs/languages/go/
-[Go Quick start]: https://grpc.io/docs/languages/go/quickstart/
 [Thread safety]: https://grpc.io/docs/languages/go/generated-code/
-[Generating client and server code]: <https://grpc.io/docs/languages/go/basics/#generating-client-and-server-code>)
