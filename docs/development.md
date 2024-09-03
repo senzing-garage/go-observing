@@ -156,11 +156,11 @@ Example:
 [git]: https://github.com/senzing-garage/knowledge-base/blob/main/WHATIS/git.md
 [go module]: ../grpc
 [Go Quick start]: https://grpc.io/docs/languages/go/quickstart/
-[Go Reference Badge]: https://pkg.go.dev/badge/github.com/senzing-garage/template-go.svg
-[Go Reference]: https://pkg.go.dev/github.com/senzing-garage/template-go
+[Go Reference Badge]: https://pkg.go.dev/badge/github.com/senzing-garage/go-observing.svg
+[Go Reference]: https://pkg.go.dev/github.com/senzing-garage/go-observing
 [go]: https://github.com/senzing-garage/knowledge-base/blob/main/WHATIS/go.md
 [gRPC Documents for Go]: https://grpc.io/docs/languages/go/
-[localhost:6060]: http://localhost:6060/pkg/github.com/senzing-garage/template-go/
+[localhost:6060]: http://localhost:6060/pkg/github.com/senzing-garage/go-observing/
 [make]: https://github.com/senzing-garage/knowledge-base/blob/main/WHATIS/make.md
 [testcoverage.yaml]: ../.github/coverage/testcoverage.yaml
 [Thread safety]: https://grpc.io/docs/languages/go/generated-code/
