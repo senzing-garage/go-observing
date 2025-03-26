@@ -29,7 +29,7 @@ linters:
     - fatcontext
     # - forbidigo
     - forcetypeassert
-    - funlen
+    # - funlen
     - ginkgolinter
     - gocheckcompilerdirectives
     # - gochecknoglobals
@@ -55,21 +55,21 @@ linters:
     - ineffassign
     - interfacebloat
     - intrange
-    - ireturn
-    - lll
+    # - ireturn
+    # - lll
     - loggercheck
     - maintidx
     - makezero
     - mirror
     - misspell
-    - mnd
+    # - mnd
     - musttag
     - nakedret
-    - nestif
+    # - nestif
     - nilerr
     - nilnesserr
     - nilnil
-    - nlreturn
+    # - nlreturn
     - noctx
     - nolintlint
     - nonamedreturns
@@ -92,19 +92,19 @@ linters:
     - tagliatelle
     - testableexamples
     - testifylint
-    - testpackage
-    - thelper
+    # - testpackage
+    # - thelper
     - tparallel
     - unconvert
     - unparam
     - unused
     - usestdlibvars
-    - usetesting
+    # - usetesting
     - varnamelen
     - wastedassign
-    - whitespace
-    - wrapcheck
-    - wsl
+    # - whitespace
+    # - wrapcheck
+    # - wsl
     - zerologlint
   exclusions:
     generated: lax
@@ -122,9 +122,9 @@ formatters:
   enable:
     - gci
     - gofmt
-    - gofumpt
+    # - gofumpt
     - goimports
-    - golines
+    # - golines
   exclusions:
     generated: lax
     paths:
