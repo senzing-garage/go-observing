@@ -1,9 +1,10 @@
-package observer
+package observer_test
 
 import (
 	"context"
 	"testing"
 
+	"github.com/senzing-garage/go-observing/observer"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -13,7 +14,7 @@ import (
 
 func TestObserverNull_GetObserverId(test *testing.T) {
 	ctx := context.TODO()
-	observer := &NullObserver{
+	observer := &observer.NullObserver{
 		ID: "1",
 	}
 	assert.Equal(test, "1", observer.GetObserverID(ctx))
@@ -22,7 +23,7 @@ func TestObserverNull_GetObserverId(test *testing.T) {
 func TestObserverNull_UpdateObserver(test *testing.T) {
 	_ = test
 	ctx := context.TODO()
-	observer := &NullObserver{
+	observer := &observer.NullObserver{
 		ID: "1",
 	}
 	observer.UpdateObserver(ctx, "A message")

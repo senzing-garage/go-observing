@@ -43,6 +43,6 @@ Input
 func (observer *RawObserver) UpdateObserver(ctx context.Context, message string) {
 	_ = ctx
 	if !observer.IsSilent {
-		fmt.Println(message)
+		fmt.Println(message) //nolint
 	}
 }

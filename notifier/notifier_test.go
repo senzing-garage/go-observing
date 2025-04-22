@@ -1,41 +1,12 @@
-package notifier
+package notifier_test
 
 import (
 	"context"
-	"fmt"
-	"os"
 	"testing"
 
+	"github.com/senzing-garage/go-observing/notifier"
 	"github.com/senzing-garage/go-observing/subject"
 )
-
-// ----------------------------------------------------------------------------
-// Test harness
-// ----------------------------------------------------------------------------
-
-func TestMain(m *testing.M) {
-	err := setup()
-	if err != nil {
-		fmt.Print(err)
-		os.Exit(1)
-	}
-	code := m.Run()
-	err = teardown()
-	if err != nil {
-		fmt.Print(err)
-	}
-	os.Exit(code)
-}
-
-func setup() error {
-	var err error
-	return err
-}
-
-func teardown() error {
-	var err error
-	return err
-}
 
 // ----------------------------------------------------------------------------
 // Test interface functions
@@ -44,7 +15,7 @@ func teardown() error {
 func TestNotify(test *testing.T) {
 	_ = test
 	ctx := context.TODO()
-	observers := &subject.SimpleSubject{}
+	subject := subject.NewSimpleSubject()
 	origin := "Machine: 6 Process: Rover"
 	subjectID := 1
 	messageID := 2
@@ -53,5 +24,5 @@ func TestNotify(test *testing.T) {
 		"data": "aData",
 		"time": "aTime",
 	}
-	Notify(ctx, observers, origin, subjectID, messageID, err, details)
+	notifier.Notify(ctx, subject, origin, subjectID, messageID, err, details)
 }

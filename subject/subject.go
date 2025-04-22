@@ -14,39 +14,7 @@ import (
 // SimpleSubject is the default implementation of the Subject interface.
 type SimpleSubject struct {
 	observerList []observer.Observer
-}
-
-// ----------------------------------------------------------------------------
-// Variables
-// ----------------------------------------------------------------------------
-
-var lock = sync.RWMutex{}
-
-// ----------------------------------------------------------------------------
-// Internal functions
-// ----------------------------------------------------------------------------
-
-func contains(ctx context.Context, haystack []observer.Observer, needle observer.Observer) bool {
-	_ = ctx
-	needleID := needle.GetObserverID(ctx)
-	for _, value := range haystack {
-		if value.GetObserverID(ctx) == needleID {
-			return true
-		}
-	}
-	return false
-}
-
-func removeFromSlice(ctx context.Context, observerList []observer.Observer, observerToRemove observer.Observer) []observer.Observer {
-	removeID := observerToRemove.GetObserverID(ctx)
-	observerListLength := len(observerList)
-	for i, observer := range observerList {
-		if observer.GetObserverID(ctx) == removeID {
-			observerList[observerListLength-1], observerList[i] = observerList[i], observerList[observerListLength-1]
-			return observerList[:observerListLength-1]
-		}
-	}
-	return observerList
+	Lock         sync.RWMutex
 }
 
 // ----------------------------------------------------------------------------
@@ -107,8 +75,8 @@ Input
 func (subject *SimpleSubject) RegisterObserver(ctx context.Context, observer observer.Observer) error {
 	var err error
 	if observer != nil {
-		lock.RLock()
-		defer lock.RUnlock()
+		subject.Lock.RLock()
+		defer subject.Lock.RUnlock()
 		if !contains(ctx, subject.observerList, observer) {
 			subject.observerList = append(subject.observerList, observer)
 		}
@@ -127,9 +95,40 @@ Input
 func (subject *SimpleSubject) UnregisterObserver(ctx context.Context, observer observer.Observer) error {
 	var err error
 	if observer != nil {
-		lock.RLock()
-		defer lock.RUnlock()
+		subject.Lock.RLock()
+		defer subject.Lock.RUnlock()
 		subject.observerList = removeFromSlice(ctx, subject.observerList, observer)
 	}
 	return err
+}
+
+// ----------------------------------------------------------------------------
+// Internal functions
+// ----------------------------------------------------------------------------
+
+func contains(ctx context.Context, haystack []observer.Observer, needle observer.Observer) bool {
+	_ = ctx
+	needleID := needle.GetObserverID(ctx)
+	for _, value := range haystack {
+		if value.GetObserverID(ctx) == needleID {
+			return true
+		}
+	}
+	return false
+}
+
+func removeFromSlice(
+	ctx context.Context,
+	observerList []observer.Observer,
+	observerToRemove observer.Observer,
+) []observer.Observer {
+	removeID := observerToRemove.GetObserverID(ctx)
+	observerListLength := len(observerList)
+	for i, observer := range observerList {
+		if observer.GetObserverID(ctx) == removeID {
+			observerList[observerListLength-1], observerList[i] = observerList[i], observerList[observerListLength-1]
+			return observerList[:observerListLength-1]
+		}
+	}
+	return observerList
 }

@@ -13,7 +13,7 @@ linters:
     - copyloopvar
     - cyclop
     - decorder
-    # - depguard
+    - depguard
     - dogsled
     - dupl
     - dupword
@@ -24,16 +24,17 @@ linters:
     - errname
     - errorlint
     - exhaustive
-    # - exhaustruct
+    - exhaustruct
     - exptostd
     - fatcontext
-    # - forbidigo
+    - forbidigo
     - forcetypeassert
-    # - funlen
+    - funcorder
+    - funlen
     - ginkgolinter
     - gocheckcompilerdirectives
-    # - gochecknoglobals
-    # - gochecknoinits
+    - gochecknoglobals
+    - gochecknoinits
     - gochecksumtype
     - gocognit
     - goconst
@@ -55,8 +56,8 @@ linters:
     - ineffassign
     - interfacebloat
     - intrange
-    # - ireturn
-    # - lll
+    - ireturn
+    - lll
     - loggercheck
     - maintidx
     - makezero
@@ -92,7 +93,7 @@ linters:
     - tagliatelle
     - testableexamples
     - testifylint
-    # - testpackage
+    - testpackage
     # - thelper
     - tparallel
     - unconvert
@@ -106,6 +107,10 @@ linters:
     # - wrapcheck
     # - wsl
     - zerologlint
+  disable:
+    # - gochecknoglobals
+    - gochecknoinits
+    - lll
   exclusions:
     generated: lax
     presets:
@@ -117,6 +122,23 @@ linters:
       - third_party$
       - builtin$
       - examples$
+  settings:
+    depguard:
+      rules:
+        prevent_unmaintained_packages:
+          list-mode: lax # allow unless explicitely denied
+          allow:
+            - github.com/stretchr/testify/*
+          deny:
+            - pkg: io/ioutil
+              desc: "replaced by io and os packages since Go 1.16: https://tip.golang.org/doc/go1.16#ioutil"
+    exhaustruct:
+      exclude:
+        - '.+/grpcserver\.SimpleGrpcServer$'
+        - '.+/observer\.NullObserver$'
+        - '.+/observer\.RawObserver$'
+        - '.+/observer\.WhiteListObserver$'
+        - '.+/observerpb\.UpdateObserverRequest$'
 
 formatters:
   enable:

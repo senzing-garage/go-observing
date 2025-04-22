@@ -1,9 +1,10 @@
-package observer
+package observer_test
 
 import (
 	"context"
 	"testing"
 
+	"github.com/senzing-garage/go-observing/observer"
 	"github.com/senzing-garage/go-observing/observerpb"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -11,7 +12,7 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 )
 
-var grpcAddress = "localhost:8261"
+const grpcAddress = "localhost:8261"
 
 // ----------------------------------------------------------------------------
 // Test interface functions
@@ -22,7 +23,7 @@ func TestObserverGrpc_GetObserverId(test *testing.T) {
 	grpcConnection, err := grpc.NewClient(grpcAddress, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	require.NoError(test, err)
 	grpcClient := observerpb.NewObserverClient(grpcConnection)
-	observer := &GrpcObserver{
+	observer := &observer.GrpcObserver{
 		GrpcClient: grpcClient,
 		ID:         "1",
 	}
@@ -35,7 +36,7 @@ func TestObserverGrpc_UpdateObserver(test *testing.T) {
 	grpcConnection, err := grpc.NewClient(grpcAddress, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	require.NoError(test, err)
 	grpcClient := observerpb.NewObserverClient(grpcConnection)
-	observer := &GrpcObserver{
+	observer := &observer.GrpcObserver{
 		GrpcClient: grpcClient,
 		ID:         "1",
 	}

@@ -1,4 +1,4 @@
-package subject
+package subject_test
 
 import (
 	"context"
@@ -6,12 +6,9 @@ import (
 	"testing"
 
 	"github.com/senzing-garage/go-observing/observer"
+	"github.com/senzing-garage/go-observing/subject"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-)
-
-var (
-	subjectSingleton Subject
 )
 
 // ----------------------------------------------------------------------------
@@ -20,40 +17,40 @@ var (
 
 func TestSubjectImpl_GetObservers(test *testing.T) {
 	ctx := context.TODO()
-	subject := &SimpleSubject{}
+	testObject := subject.NewSimpleSubject()
 	observer := &observer.NullObserver{
 		ID: "Observer 1",
 	}
-	err := subject.RegisterObserver(ctx, observer)
+	err := testObject.RegisterObserver(ctx, observer)
 	require.NoError(test, err)
-	err = subject.RegisterObserver(ctx, observer)
+	err = testObject.RegisterObserver(ctx, observer)
 	require.NoError(test, err)
-	err = subject.RegisterObserver(ctx, observer)
+	err = testObject.RegisterObserver(ctx, observer)
 	require.NoError(test, err)
 
-	observers := subject.GetObservers(ctx)
+	observers := testObject.GetObservers(ctx)
 	assert.Len(test, observers, 1)
 }
 
 func TestSubjectImpl_GetObservers_multi(test *testing.T) {
 	ctx := context.TODO()
-	subject := &SimpleSubject{}
+	testObject := subject.NewSimpleSubject()
 	observer1 := &observer.NullObserver{
 		ID: "Observer 1",
 	}
 	observer2 := &observer.NullObserver{
 		ID: "Observer 2",
 	}
-	err := subject.RegisterObserver(ctx, observer1)
+	err := testObject.RegisterObserver(ctx, observer1)
 	require.NoError(test, err)
-	err = subject.RegisterObserver(ctx, observer1)
+	err = testObject.RegisterObserver(ctx, observer1)
 	require.NoError(test, err)
-	err = subject.RegisterObserver(ctx, observer2)
+	err = testObject.RegisterObserver(ctx, observer2)
 	require.NoError(test, err)
-	err = subject.RegisterObserver(ctx, observer2)
+	err = testObject.RegisterObserver(ctx, observer2)
 	require.NoError(test, err)
 
-	observers := subject.GetObservers(ctx)
+	observers := testObject.GetObservers(ctx)
 	assert.Len(test, observers, 2)
 }
 
@@ -94,7 +91,7 @@ func TestSubjectImpl_UnregisterObserver(test *testing.T) {
 
 func TestSubjectImpl_UnregisterObserver_Multiple(test *testing.T) {
 	ctx := context.TODO()
-	subject := &SimpleSubject{}
+	subject := subject.NewSimpleSubject()
 	assert.False(test, subject.HasObservers(ctx))
 
 	observer1 := &observer.NullObserver{
@@ -140,18 +137,15 @@ func TestSubjectImpl_PrintBuffer(test *testing.T) {
 	// This clears out the print buffer.
 	// If not cleared, ExampleSubjectImpl_HasObservers() prints the buffer and confuses the "Output:"
 	_ = test
-	fmt.Print("")
+	fmt.Print("") //nolint
 }
 
 // ----------------------------------------------------------------------------
 // Internal functions
 // ----------------------------------------------------------------------------
 
-func getTestObject(ctx context.Context, test *testing.T) Subject {
+func getTestObject(ctx context.Context, test *testing.T) *subject.SimpleSubject {
 	_ = ctx
 	_ = test
-	if subjectSingleton == nil {
-		subjectSingleton = &SimpleSubject{}
-	}
-	return subjectSingleton
+	return subject.NewSimpleSubject()
 }

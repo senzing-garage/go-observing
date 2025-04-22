@@ -100,7 +100,7 @@ generate:
 # -----------------------------------------------------------------------------
 
 .PHONY: lint
-lint: golangci-lint
+lint: golangci-lint govulncheck
 
 # -----------------------------------------------------------------------------
 # Build
@@ -189,3 +189,8 @@ update-pkg-cache:
 .PHONY: golangci-lint
 golangci-lint:
 	@${GOBIN}/golangci-lint run --config=.github/linters/.golangci.yaml
+
+
+.PHONY: govulncheck
+govulncheck:
+	@${GOBIN}/govulncheck ./...

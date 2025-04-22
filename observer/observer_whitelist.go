@@ -3,7 +3,6 @@ package observer
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"strconv"
 )
 
@@ -26,6 +25,44 @@ type WhiteListObserver struct {
 type MessageFormat struct {
 	SubjectID string `json:"subjectId"`
 	MessageID string `json:"messageId"`
+}
+
+// ----------------------------------------------------------------------------
+// Interface methods
+// ----------------------------------------------------------------------------
+
+/*
+The GetObserverID method returns the unique identifier of the observer.
+Use by the subject to manage the list of Observers.
+
+Input
+  - ctx: A context to control lifecycle.
+*/
+func (observer *WhiteListObserver) GetObserverID(ctx context.Context) string {
+	_ = ctx
+	return observer.ID
+}
+
+/*
+The UpdateObserver method processes the message sent by the Subject.
+The subject invokes UpdateObserver as a goroutine.
+
+Input
+  - ctx: A context to control lifecycle.
+  - message: The string to propagate to all registered Observers.
+*/
+func (observer *WhiteListObserver) UpdateObserver(ctx context.Context, message string) {
+	_ = ctx
+	if !observer.IsSilent {
+		isOnWhiteList, err := observer.onWhiteList(message)
+		if err != nil {
+			outputf("Error: Observer: %s;  Message: %s; Error: %v\n", observer.ID, message, err)
+
+		}
+		if isOnWhiteList {
+			outputf("Observer: %s;  Message: %s\n", observer.ID, message)
+		}
+	}
 }
 
 // ----------------------------------------------------------------------------
@@ -59,42 +96,4 @@ func (observer *WhiteListObserver) onWhiteList(message string) (bool, error) {
 		return observer.WhiteList[subjectID][messageID], err
 	}
 	return false, err
-}
-
-// ----------------------------------------------------------------------------
-// Interface methods
-// ----------------------------------------------------------------------------
-
-/*
-The GetObserverID method returns the unique identifier of the observer.
-Use by the subject to manage the list of Observers.
-
-Input
-  - ctx: A context to control lifecycle.
-*/
-func (observer *WhiteListObserver) GetObserverID(ctx context.Context) string {
-	_ = ctx
-	return observer.ID
-}
-
-/*
-The UpdateObserver method processes the message sent by the Subject.
-The subject invokes UpdateObserver as a goroutine.
-
-Input
-  - ctx: A context to control lifecycle.
-  - message: The string to propagate to all registered Observers.
-*/
-func (observer *WhiteListObserver) UpdateObserver(ctx context.Context, message string) {
-	_ = ctx
-	if !observer.IsSilent {
-		isOnWhiteList, err := observer.onWhiteList(message)
-		if err != nil {
-			fmt.Printf("Error: Observer: %s;  Message: %s; Error: %v\n", observer.ID, message, err)
-
-		}
-		if isOnWhiteList {
-			fmt.Printf("Observer: %s;  Message: %s\n", observer.ID, message)
-		}
-	}
 }
