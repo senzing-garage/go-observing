@@ -1,4 +1,4 @@
-package subject
+package subject_test
 
 import (
 	"context"
@@ -6,12 +6,9 @@ import (
 	"testing"
 
 	"github.com/senzing-garage/go-observing/observer"
+	"github.com/senzing-garage/go-observing/subject"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-)
-
-var (
-	subjectSingleton Subject
 )
 
 // ----------------------------------------------------------------------------
@@ -19,52 +16,56 @@ var (
 // ----------------------------------------------------------------------------
 
 func TestSubjectImpl_GetObservers(test *testing.T) {
-	ctx := context.TODO()
-	subject := &SimpleSubject{}
+	test.Parallel()
+	ctx := test.Context()
+	testObject := subject.NewSimpleSubject()
 	observer := &observer.NullObserver{
 		ID: "Observer 1",
 	}
-	err := subject.RegisterObserver(ctx, observer)
+	err := testObject.RegisterObserver(ctx, observer)
 	require.NoError(test, err)
-	err = subject.RegisterObserver(ctx, observer)
+	err = testObject.RegisterObserver(ctx, observer)
 	require.NoError(test, err)
-	err = subject.RegisterObserver(ctx, observer)
+	err = testObject.RegisterObserver(ctx, observer)
 	require.NoError(test, err)
 
-	observers := subject.GetObservers(ctx)
+	observers := testObject.GetObservers(ctx)
 	assert.Len(test, observers, 1)
 }
 
 func TestSubjectImpl_GetObservers_multi(test *testing.T) {
-	ctx := context.TODO()
-	subject := &SimpleSubject{}
+	test.Parallel()
+	ctx := test.Context()
+	testObject := subject.NewSimpleSubject()
 	observer1 := &observer.NullObserver{
 		ID: "Observer 1",
 	}
 	observer2 := &observer.NullObserver{
 		ID: "Observer 2",
 	}
-	err := subject.RegisterObserver(ctx, observer1)
+	err := testObject.RegisterObserver(ctx, observer1)
 	require.NoError(test, err)
-	err = subject.RegisterObserver(ctx, observer1)
+	err = testObject.RegisterObserver(ctx, observer1)
 	require.NoError(test, err)
-	err = subject.RegisterObserver(ctx, observer2)
+	err = testObject.RegisterObserver(ctx, observer2)
 	require.NoError(test, err)
-	err = subject.RegisterObserver(ctx, observer2)
+	err = testObject.RegisterObserver(ctx, observer2)
 	require.NoError(test, err)
 
-	observers := subject.GetObservers(ctx)
+	observers := testObject.GetObservers(ctx)
 	assert.Len(test, observers, 2)
 }
 
 func TestSubjectImpl_HasObservers(test *testing.T) {
-	ctx := context.TODO()
+	test.Parallel()
+	ctx := test.Context()
 	subject := getTestObject(ctx, test)
 	assert.False(test, subject.HasObservers(ctx))
 }
 
 func TestSubjectImpl_RegisterObserver(test *testing.T) {
-	ctx := context.TODO()
+	test.Parallel()
+	ctx := test.Context()
 	subject := getTestObject(ctx, test)
 	observer := &observer.NullObserver{
 		ID: "Observer 1",
@@ -75,14 +76,16 @@ func TestSubjectImpl_RegisterObserver(test *testing.T) {
 }
 
 func TestSubjectImpl_NotifyObservers(test *testing.T) {
-	ctx := context.TODO()
+	test.Parallel()
+	ctx := test.Context()
 	subject := getTestObject(ctx, test)
 	err := subject.NotifyObservers(ctx, "Message 1")
 	require.NoError(test, err)
 }
 
 func TestSubjectImpl_UnregisterObserver(test *testing.T) {
-	ctx := context.TODO()
+	test.Parallel()
+	ctx := test.Context()
 	subject := getTestObject(ctx, test)
 	observer := &observer.NullObserver{
 		ID: "Observer 1",
@@ -93,8 +96,9 @@ func TestSubjectImpl_UnregisterObserver(test *testing.T) {
 }
 
 func TestSubjectImpl_UnregisterObserver_Multiple(test *testing.T) {
-	ctx := context.TODO()
-	subject := &SimpleSubject{}
+	test.Parallel()
+	ctx := test.Context()
+	subject := subject.NewSimpleSubject()
 	assert.False(test, subject.HasObservers(ctx))
 
 	observer1 := &observer.NullObserver{
@@ -139,19 +143,20 @@ func TestSubjectImpl_PrintBuffer(test *testing.T) {
 	// This is a work-around for testing on windows.
 	// This clears out the print buffer.
 	// If not cleared, ExampleSubjectImpl_HasObservers() prints the buffer and confuses the "Output:"
+	test.Parallel()
 	_ = test
-	fmt.Print("")
+
+	fmt.Print("") //nolint
 }
 
 // ----------------------------------------------------------------------------
 // Internal functions
 // ----------------------------------------------------------------------------
 
-func getTestObject(ctx context.Context, test *testing.T) Subject {
+func getTestObject(ctx context.Context, t *testing.T) *subject.SimpleSubject {
+	t.Helper()
+
 	_ = ctx
-	_ = test
-	if subjectSingleton == nil {
-		subjectSingleton = &SimpleSubject{}
-	}
-	return subjectSingleton
+
+	return subject.NewSimpleSubject()
 }

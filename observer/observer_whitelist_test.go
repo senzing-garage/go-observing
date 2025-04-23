@@ -1,9 +1,9 @@
-package observer
+package observer_test
 
 import (
-	"context"
 	"testing"
 
+	"github.com/senzing-garage/go-observing/observer"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -12,23 +12,24 @@ import (
 // ----------------------------------------------------------------------------
 
 func TestObserverWhiteList_GetObserverId(test *testing.T) {
-	ctx := context.TODO()
-	observer := &WhiteListObserver{
+	test.Parallel()
+	ctx := test.Context()
+	observer := &observer.WhiteListObserver{
 		ID: "1",
 	}
 	assert.Equal(test, "1", observer.GetObserverID(ctx))
 }
 
 func TestObserverWhiteList_UpdateObserver(test *testing.T) {
-	_ = test
-	ctx := context.TODO()
+	test.Parallel()
+	ctx := test.Context()
 	message11 := `{"subjectId":"1", "messageId": "1"}`
 	message12 := `{"subjectId":"1", "messageId": "2"}`
 	message21 := `{"subjectId":"2", "messageId": "1"}`
 	message22 := `{"subjectId":"2", "messageId": "2"}`
 	message31 := `{"subjectId":"3", "messageId": "1"}`
 
-	observer := &WhiteListObserver{
+	observer := &observer.WhiteListObserver{
 		ID: "1",
 		WhiteList: map[int]map[int]bool{
 			1: {

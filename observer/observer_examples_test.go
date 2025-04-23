@@ -1,10 +1,12 @@
 //go:build linux
 
-package observer
+package observer_test
 
 import (
 	"context"
 	"fmt"
+
+	"github.com/senzing-garage/go-observing/observer"
 )
 
 // ----------------------------------------------------------------------------
@@ -14,7 +16,7 @@ import (
 func ExampleNullObserver_GetObserverID() {
 	// For more information, visit https://github.com/senzing-garage/go-observing/blob/main/observer/observer_examples_test.go
 	ctx := context.TODO()
-	observer := &NullObserver{
+	observer := &observer.NullObserver{
 		ID: "1",
 	}
 	fmt.Print(observer.GetObserverID(ctx))
@@ -24,7 +26,7 @@ func ExampleNullObserver_GetObserverID() {
 func ExampleNullObserver_UpdateObserver() {
 	// For more information, visit https://github.com/senzing-garage/go-observing/blob/main/observer/observer_test.go
 	ctx := context.TODO()
-	observer := &NullObserver{
+	observer := &observer.NullObserver{
 		ID: "1",
 	}
 	observer.UpdateObserver(ctx, "A message")
@@ -34,7 +36,7 @@ func ExampleNullObserver_UpdateObserver() {
 func ExampleWhiteListObserver_GetObserverID() {
 	// For more information, visit https://github.com/senzing-garage/go-observing/blob/main/observer/observer_test.go
 	ctx := context.TODO()
-	observer := &WhiteListObserver{
+	observer := &observer.WhiteListObserver{
 		ID: "1",
 	}
 	fmt.Print(observer.GetObserverID(ctx))
@@ -50,7 +52,7 @@ func ExampleWhiteListObserver_UpdateObserver() {
 	message22 := `{"subjectId":"2", "messageId": "2"}`
 	message31 := `{"subjectId":"3", "messageId": "1"}`
 
-	observer := &WhiteListObserver{
+	observer := &observer.WhiteListObserver{
 		ID: "1",
 		WhiteList: map[int]map[int]bool{
 			1: {

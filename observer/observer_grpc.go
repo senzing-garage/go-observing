@@ -30,6 +30,7 @@ Input
 */
 func (observer *GrpcObserver) GetObserverID(ctx context.Context) string {
 	_ = ctx
+
 	return observer.ID
 }
 
@@ -46,6 +47,7 @@ func (observer *GrpcObserver) UpdateObserver(ctx context.Context, message string
 		request := observerpb.UpdateObserverRequest{
 			Message: message,
 		}
+
 		_, err := observer.GrpcClient.UpdateObserver(ctx, &request)
 		if err != nil {
 			log.Printf("Observer: %s;  Message: %s; Error: %v\n", observer.ID, message, err)

@@ -6,6 +6,7 @@ import (
 	"log"
 	"net"
 
+	"github.com/senzing-garage/go-helpers/wraperror"
 	"github.com/senzing-garage/go-observing/observerpb"
 	"github.com/senzing-garage/go-observing/subject"
 	"google.golang.org/grpc"
@@ -37,7 +38,9 @@ Input
 */
 func (grpcServer *SimpleGrpcServer) GracefulStop(ctx context.Context) error {
 	_ = ctx
+
 	grpcServer.server.GracefulStop()
+
 	return nil
 }
 
@@ -55,8 +58,10 @@ func (grpcServer *SimpleGrpcServer) Serve(ctx context.Context) error {
 	listener, err := net.Listen("tcp", fmt.Sprintf(":%d", grpcServer.Port))
 	if err != nil {
 		log.Printf("Port: %d; Error: %v\n", grpcServer.Port, err)
-		return err
+
+		return wraperror.Errorf(err, "grpcserver.net.Listen error: %w", err)
 	}
+
 	log.Printf("Observer gRPC service running on port: %d\n", grpcServer.Port)
 
 	// Create server.
@@ -75,7 +80,7 @@ func (grpcServer *SimpleGrpcServer) Serve(ctx context.Context) error {
 		log.Println(err)
 	}
 
-	return err
+	return wraperror.Errorf(err, "grpcserver.Serve error: %w", err)
 }
 
 /*
@@ -90,12 +95,18 @@ Output
   - Empty response
   - Error
 */
-func (grpcServer *SimpleGrpcServer) UpdateObserver(ctx context.Context, request *observerpb.UpdateObserverRequest) (*observerpb.UpdateObserverResponse, error) {
+func (grpcServer *SimpleGrpcServer) UpdateObserver(
+	ctx context.Context,
+	request *observerpb.UpdateObserverRequest,
+) (*observerpb.UpdateObserverResponse, error) {
 	_ = ctx
+
 	var err error
 	if grpcServer.Subject != nil {
 		err = grpcServer.Subject.NotifyObservers(ctx, request.GetMessage())
 	}
+
 	response := observerpb.UpdateObserverResponse{}
-	return &response, err
+
+	return &response, wraperror.Errorf(err, "grpcserver.UpdateObserver error: %w", err)
 }

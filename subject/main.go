@@ -2,6 +2,7 @@ package subject
 
 import (
 	"context"
+	"sync"
 
 	"github.com/senzing-garage/go-observing/observer"
 )
@@ -24,3 +25,13 @@ type Subject interface {
 
 // Identfier of the  package found messages having the format "senzing-6463xxxx".
 const ComponentID = 6463
+
+// ----------------------------------------------------------------------------
+// Constructors
+// ----------------------------------------------------------------------------
+
+func NewSimpleSubject() *SimpleSubject {
+	return &SimpleSubject{
+		Lock: sync.RWMutex{},
+	}
+}

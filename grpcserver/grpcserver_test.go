@@ -1,53 +1,24 @@
-package grpcserver
+package grpcserver_test
 
 import (
-	"context"
-	"fmt"
-	"os"
 	"testing"
 	"time"
 
+	"github.com/senzing-garage/go-observing/grpcserver"
 	"github.com/senzing-garage/go-observing/observerpb"
 	"github.com/senzing-garage/go-observing/subject"
 	"github.com/stretchr/testify/require"
 )
 
 // ----------------------------------------------------------------------------
-// Test harness
-// ----------------------------------------------------------------------------
-
-func TestMain(m *testing.M) {
-	err := setup()
-	if err != nil {
-		fmt.Print(err)
-		os.Exit(1)
-	}
-	code := m.Run()
-	err = teardown()
-	if err != nil {
-		fmt.Print(err)
-	}
-	os.Exit(code)
-}
-
-func setup() error {
-	var err error
-	return err
-}
-
-func teardown() error {
-	var err error
-	return err
-}
-
-// ----------------------------------------------------------------------------
 // Test interface functions
 // ----------------------------------------------------------------------------
 
 func TestSimpleGrpcServer_Serve(test *testing.T) {
-	ctx := context.TODO()
-	aSubject := &subject.SimpleSubject{}
-	aGrpcServer := &SimpleGrpcServer{
+	test.Parallel()
+	ctx := test.Context()
+	aSubject := subject.NewSimpleSubject()
+	aGrpcServer := &grpcserver.SimpleGrpcServer{
 		Port:    8260,
 		Subject: aSubject,
 	}
@@ -55,7 +26,7 @@ func TestSimpleGrpcServer_Serve(test *testing.T) {
 	go func() {
 		err := aGrpcServer.Serve(ctx)
 		if err != nil {
-			fmt.Print(err)
+			panic(err)
 		}
 	}()
 	time.Sleep(1 * time.Second)
@@ -65,9 +36,10 @@ func TestSimpleGrpcServer_Serve(test *testing.T) {
 }
 
 func TestSimpleGrpcServer_UpdateObserver(test *testing.T) {
-	ctx := context.TODO()
-	aSubject := &subject.SimpleSubject{}
-	aGrpcServer := &SimpleGrpcServer{
+	test.Parallel()
+	ctx := test.Context()
+	aSubject := subject.NewSimpleSubject()
+	aGrpcServer := &grpcserver.SimpleGrpcServer{
 		Port:    8260,
 		Subject: aSubject,
 	}

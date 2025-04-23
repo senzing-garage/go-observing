@@ -29,6 +29,7 @@ Input
 */
 func (observer *NullObserver) GetObserverID(ctx context.Context) string {
 	_ = ctx
+
 	return observer.ID
 }
 
@@ -42,7 +43,16 @@ Input
 */
 func (observer *NullObserver) UpdateObserver(ctx context.Context, message string) {
 	_ = ctx
+
 	if !observer.IsSilent {
-		fmt.Printf("Observer: %s;  Message: %s\n", observer.ID, message)
+		outputf("Observer: %s;  Message: %s\n", observer.ID, message)
 	}
+}
+
+// ----------------------------------------------------------------------------
+// Private functions
+// ----------------------------------------------------------------------------
+
+func outputf(format string, message ...any) {
+	fmt.Printf(format, message...) //nolint
 }

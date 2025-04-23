@@ -69,6 +69,7 @@ dependencies-for-development: dependencies-for-development-osarch-specific
 	@go install github.com/gotesttools/gotestfmt/v2/cmd/gotestfmt@latest
 	@go install github.com/vladopajic/go-test-coverage/v2@latest
 	@go install golang.org/x/tools/cmd/godoc@latest
+	@go install golang.org/x/vuln/cmd/govulncheck@latest
 
 
 .PHONY: dependencies
@@ -100,7 +101,7 @@ generate:
 # -----------------------------------------------------------------------------
 
 .PHONY: lint
-lint: golangci-lint
+lint: golangci-lint govulncheck
 
 # -----------------------------------------------------------------------------
 # Build
@@ -189,3 +190,8 @@ update-pkg-cache:
 .PHONY: golangci-lint
 golangci-lint:
 	@${GOBIN}/golangci-lint run --config=.github/linters/.golangci.yaml
+
+
+.PHONY: govulncheck
+govulncheck:
+	@${GOBIN}/govulncheck ./...
