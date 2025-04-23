@@ -4,6 +4,8 @@ import (
 	"context"
 	"encoding/json"
 	"strconv"
+
+	"github.com/senzing-garage/go-helpers/wraperror"
 )
 
 // ----------------------------------------------------------------------------
@@ -40,6 +42,7 @@ Input
 */
 func (observer *WhiteListObserver) GetObserverID(ctx context.Context) string {
 	_ = ctx
+
 	return observer.ID
 }
 
@@ -53,12 +56,13 @@ Input
 */
 func (observer *WhiteListObserver) UpdateObserver(ctx context.Context, message string) {
 	_ = ctx
+
 	if !observer.IsSilent {
 		isOnWhiteList, err := observer.onWhiteList(message)
 		if err != nil {
 			outputf("Error: Observer: %s;  Message: %s; Error: %v\n", observer.ID, message, err)
-
 		}
+
 		if isOnWhiteList {
 			outputf("Observer: %s;  Message: %s\n", observer.ID, message)
 		}
@@ -71,19 +75,23 @@ func (observer *WhiteListObserver) UpdateObserver(ctx context.Context, message s
 
 func (observer *WhiteListObserver) parseMessage(message string) (int, int, error) {
 	var parsedMessage MessageFormat
+
 	err := json.Unmarshal([]byte(message), &parsedMessage)
 	if err != nil {
-		return 0, 0, err
+		return 0, 0, wraperror.Errorf(err, "observer.parseMessage.Unmarshall error: %w", err)
 	}
+
 	subjectID, err := strconv.Atoi(parsedMessage.SubjectID)
 	if err != nil {
-		return 0, 0, err
+		return 0, 0, wraperror.Errorf(err, "observer.parseMessage.SubjectID error: %w", err)
 	}
+
 	messageID, err := strconv.Atoi(parsedMessage.MessageID)
 	if err != nil {
-		return 0, 0, err
+		return 0, 0, wraperror.Errorf(err, "observer.parseMessage.MessageID error: %w", err)
 	}
-	return subjectID, messageID, err
+
+	return subjectID, messageID, wraperror.Errorf(err, "observer.parseMessage error: %w", err)
 }
 
 func (observer *WhiteListObserver) onWhiteList(message string) (bool, error) {
@@ -91,9 +99,11 @@ func (observer *WhiteListObserver) onWhiteList(message string) (bool, error) {
 	if !observer.IsSilent {
 		subjectID, messageID, err := observer.parseMessage(message)
 		if err != nil {
-			return false, err
+			return false, wraperror.Errorf(err, "observer.onWhiteList.parseMessage error: %w", err)
 		}
+
 		return observer.WhiteList[subjectID][messageID], err
 	}
-	return false, err
+
+	return false, wraperror.Errorf(err, "observer.onWhiteList error: %w", err)
 }

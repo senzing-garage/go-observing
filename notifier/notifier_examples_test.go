@@ -20,7 +20,9 @@ func ExampleNotify() {
 	origin := "Machine: 6 Process: Rover"
 	subjectID := 1
 	messageID := 2
+
 	var err error
+
 	details := map[string]string{
 		"data": "aData",
 		"time": "aTime",

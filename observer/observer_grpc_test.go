@@ -1,7 +1,6 @@
 package observer_test
 
 import (
-	"context"
 	"testing"
 
 	"github.com/senzing-garage/go-observing/observer"
@@ -19,9 +18,14 @@ const grpcAddress = "localhost:8261"
 // ----------------------------------------------------------------------------
 
 func TestObserverGrpc_GetObserverId(test *testing.T) {
-	ctx := context.TODO()
-	grpcConnection, err := grpc.NewClient(grpcAddress, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	test.Parallel()
+	ctx := test.Context()
+	grpcConnection, err := grpc.NewClient(
+		grpcAddress,
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
+	)
 	require.NoError(test, err)
+
 	grpcClient := observerpb.NewObserverClient(grpcConnection)
 	observer := &observer.GrpcObserver{
 		GrpcClient: grpcClient,
@@ -31,10 +35,14 @@ func TestObserverGrpc_GetObserverId(test *testing.T) {
 }
 
 func TestObserverGrpc_UpdateObserver(test *testing.T) {
-	_ = test
-	ctx := context.TODO()
-	grpcConnection, err := grpc.NewClient(grpcAddress, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	test.Parallel()
+	ctx := test.Context()
+	grpcConnection, err := grpc.NewClient(
+		grpcAddress,
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
+	)
 	require.NoError(test, err)
+
 	grpcClient := observerpb.NewObserverClient(grpcConnection)
 	observer := &observer.GrpcObserver{
 		GrpcClient: grpcClient,

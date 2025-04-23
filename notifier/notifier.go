@@ -54,24 +54,29 @@ func Notify(
 	err error,
 	details map[string]string,
 ) {
-	if subject != nil {
-		if len(origin) > 0 {
-			details["origin"] = origin
-		}
-		details["subjectId"] = strconv.Itoa(subjectID)
-		details["messageId"] = strconv.Itoa(messageID)
-		details["messageTime"] = time.Now().UTC().Format(time.RFC3339Nano)
-		if err != nil {
-			details["error"] = err.Error()
-		}
-		message, err := json.Marshal(details)
+	if subject == nil {
+		return
+	}
+
+	if len(origin) > 0 {
+		details["origin"] = origin
+	}
+
+	details["subjectId"] = strconv.Itoa(subjectID)
+	details["messageId"] = strconv.Itoa(messageID)
+	details["messageTime"] = time.Now().UTC().Format(time.RFC3339Nano)
+
+	if err != nil {
+		details["error"] = err.Error()
+	}
+
+	message, err := json.Marshal(details)
+	if err != nil {
+		panic(err)
+	} else if subject != nil { // For safety.
+		err := subject.NotifyObservers(ctx, string(message))
 		if err != nil {
 			panic(err)
-		} else if subject != nil { // For safety.
-			err := subject.NotifyObservers(ctx, string(message))
-			if err != nil {
-				panic(err)
-			}
 		}
 	}
 }

@@ -1,7 +1,6 @@
 package notifier_test
 
 import (
-	"context"
 	"testing"
 
 	"github.com/senzing-garage/go-observing/notifier"
@@ -13,13 +12,15 @@ import (
 // ----------------------------------------------------------------------------
 
 func TestNotify(test *testing.T) {
-	_ = test
-	ctx := context.TODO()
+	test.Parallel()
+	ctx := test.Context()
 	subject := subject.NewSimpleSubject()
 	origin := "Machine: 6 Process: Rover"
 	subjectID := 1
 	messageID := 2
+
 	var err error
+
 	details := map[string]string{
 		"data": "aData",
 		"time": "aTime",

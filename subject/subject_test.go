@@ -16,7 +16,8 @@ import (
 // ----------------------------------------------------------------------------
 
 func TestSubjectImpl_GetObservers(test *testing.T) {
-	ctx := context.TODO()
+	test.Parallel()
+	ctx := test.Context()
 	testObject := subject.NewSimpleSubject()
 	observer := &observer.NullObserver{
 		ID: "Observer 1",
@@ -33,7 +34,8 @@ func TestSubjectImpl_GetObservers(test *testing.T) {
 }
 
 func TestSubjectImpl_GetObservers_multi(test *testing.T) {
-	ctx := context.TODO()
+	test.Parallel()
+	ctx := test.Context()
 	testObject := subject.NewSimpleSubject()
 	observer1 := &observer.NullObserver{
 		ID: "Observer 1",
@@ -55,13 +57,15 @@ func TestSubjectImpl_GetObservers_multi(test *testing.T) {
 }
 
 func TestSubjectImpl_HasObservers(test *testing.T) {
-	ctx := context.TODO()
+	test.Parallel()
+	ctx := test.Context()
 	subject := getTestObject(ctx, test)
 	assert.False(test, subject.HasObservers(ctx))
 }
 
 func TestSubjectImpl_RegisterObserver(test *testing.T) {
-	ctx := context.TODO()
+	test.Parallel()
+	ctx := test.Context()
 	subject := getTestObject(ctx, test)
 	observer := &observer.NullObserver{
 		ID: "Observer 1",
@@ -72,14 +76,16 @@ func TestSubjectImpl_RegisterObserver(test *testing.T) {
 }
 
 func TestSubjectImpl_NotifyObservers(test *testing.T) {
-	ctx := context.TODO()
+	test.Parallel()
+	ctx := test.Context()
 	subject := getTestObject(ctx, test)
 	err := subject.NotifyObservers(ctx, "Message 1")
 	require.NoError(test, err)
 }
 
 func TestSubjectImpl_UnregisterObserver(test *testing.T) {
-	ctx := context.TODO()
+	test.Parallel()
+	ctx := test.Context()
 	subject := getTestObject(ctx, test)
 	observer := &observer.NullObserver{
 		ID: "Observer 1",
@@ -90,7 +96,8 @@ func TestSubjectImpl_UnregisterObserver(test *testing.T) {
 }
 
 func TestSubjectImpl_UnregisterObserver_Multiple(test *testing.T) {
-	ctx := context.TODO()
+	test.Parallel()
+	ctx := test.Context()
 	subject := subject.NewSimpleSubject()
 	assert.False(test, subject.HasObservers(ctx))
 
@@ -136,7 +143,9 @@ func TestSubjectImpl_PrintBuffer(test *testing.T) {
 	// This is a work-around for testing on windows.
 	// This clears out the print buffer.
 	// If not cleared, ExampleSubjectImpl_HasObservers() prints the buffer and confuses the "Output:"
+	test.Parallel()
 	_ = test
+
 	fmt.Print("") //nolint
 }
 
@@ -144,8 +153,10 @@ func TestSubjectImpl_PrintBuffer(test *testing.T) {
 // Internal functions
 // ----------------------------------------------------------------------------
 
-func getTestObject(ctx context.Context, test *testing.T) *subject.SimpleSubject {
+func getTestObject(ctx context.Context, t *testing.T) *subject.SimpleSubject {
+	t.Helper()
+
 	_ = ctx
-	_ = test
+
 	return subject.NewSimpleSubject()
 }

@@ -1,7 +1,6 @@
 package grpcserver_test
 
 import (
-	"context"
 	"testing"
 	"time"
 
@@ -16,7 +15,8 @@ import (
 // ----------------------------------------------------------------------------
 
 func TestSimpleGrpcServer_Serve(test *testing.T) {
-	ctx := context.TODO()
+	test.Parallel()
+	ctx := test.Context()
 	aSubject := subject.NewSimpleSubject()
 	aGrpcServer := &grpcserver.SimpleGrpcServer{
 		Port:    8260,
@@ -36,7 +36,8 @@ func TestSimpleGrpcServer_Serve(test *testing.T) {
 }
 
 func TestSimpleGrpcServer_UpdateObserver(test *testing.T) {
-	ctx := context.TODO()
+	test.Parallel()
+	ctx := test.Context()
 	aSubject := subject.NewSimpleSubject()
 	aGrpcServer := &grpcserver.SimpleGrpcServer{
 		Port:    8260,

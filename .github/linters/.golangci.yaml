@@ -63,19 +63,19 @@ linters:
     - makezero
     - mirror
     - misspell
-    # - mnd
+    - mnd
     - musttag
     - nakedret
-    # - nestif
+    - nestif
     - nilerr
     - nilnesserr
     - nilnil
-    # - nlreturn
+    - nlreturn
     - noctx
     - nolintlint
     - nonamedreturns
     - nosprintfhostport
-    # - paralleltest
+    - paralleltest
     - perfsprint
     - prealloc
     - predeclared
@@ -94,22 +94,20 @@ linters:
     - testableexamples
     - testifylint
     - testpackage
-    # - thelper
+    - thelper
     - tparallel
     - unconvert
     - unparam
     - unused
     - usestdlibvars
-    # - usetesting
+    - usetesting
     - varnamelen
     - wastedassign
-    # - whitespace
-    # - wrapcheck
-    # - wsl
+    - whitespace
+    - wrapcheck
+    - wsl
     - zerologlint
   disable:
-    # - gochecknoglobals
-    - gochecknoinits
     - lll
   exclusions:
     generated: lax
@@ -139,14 +137,15 @@ linters:
         - '.+/observer\.RawObserver$'
         - '.+/observer\.WhiteListObserver$'
         - '.+/observerpb\.UpdateObserverRequest$'
+        - '.+/subject\.SimpleSubject$'
 
 formatters:
   enable:
     - gci
     - gofmt
-    # - gofumpt
+    - gofumpt
     - goimports
-    # - golines
+    - golines
   exclusions:
     generated: lax
     paths:

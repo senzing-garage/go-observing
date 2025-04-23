@@ -32,6 +32,7 @@ func (subject *SimpleSubject) GetObservers(ctx context.Context) []observer.Obser
 	_ = ctx
 	result := make([]observer.Observer, len(subject.observerList))
 	copy(result, subject.observerList)
+
 	return result
 }
 
@@ -45,6 +46,7 @@ Input
 */
 func (subject *SimpleSubject) HasObservers(ctx context.Context) bool {
 	_ = ctx
+
 	return len(subject.observerList) > 0
 }
 
@@ -58,9 +60,11 @@ Input
 */
 func (subject *SimpleSubject) NotifyObservers(ctx context.Context, message string) error {
 	var err error
+
 	for _, observer := range subject.observerList {
 		go observer.UpdateObserver(ctx, message)
 	}
+
 	return err
 }
 
@@ -72,8 +76,12 @@ Input
   - ctx: A context to control lifecycle.
   - observer: A component wanting to listen to events.
 */
-func (subject *SimpleSubject) RegisterObserver(ctx context.Context, observer observer.Observer) error {
+func (subject *SimpleSubject) RegisterObserver(
+	ctx context.Context,
+	observer observer.Observer,
+) error {
 	var err error
+
 	if observer != nil {
 		subject.Lock.RLock()
 		defer subject.Lock.RUnlock()
@@ -81,6 +89,7 @@ func (subject *SimpleSubject) RegisterObserver(ctx context.Context, observer obs
 			subject.observerList = append(subject.observerList, observer)
 		}
 	}
+
 	return err
 }
 
@@ -92,13 +101,18 @@ Input
   - ctx: A context to control lifecycle.
   - observer: A component no longer wanting to listen to events.
 */
-func (subject *SimpleSubject) UnregisterObserver(ctx context.Context, observer observer.Observer) error {
+func (subject *SimpleSubject) UnregisterObserver(
+	ctx context.Context,
+	observer observer.Observer,
+) error {
 	var err error
+
 	if observer != nil {
 		subject.Lock.RLock()
 		defer subject.Lock.RUnlock()
 		subject.observerList = removeFromSlice(ctx, subject.observerList, observer)
 	}
+
 	return err
 }
 
@@ -108,12 +122,14 @@ func (subject *SimpleSubject) UnregisterObserver(ctx context.Context, observer o
 
 func contains(ctx context.Context, haystack []observer.Observer, needle observer.Observer) bool {
 	_ = ctx
+
 	needleID := needle.GetObserverID(ctx)
 	for _, value := range haystack {
 		if value.GetObserverID(ctx) == needleID {
 			return true
 		}
 	}
+
 	return false
 }
 
@@ -124,11 +140,14 @@ func removeFromSlice(
 ) []observer.Observer {
 	removeID := observerToRemove.GetObserverID(ctx)
 	observerListLength := len(observerList)
+
 	for i, observer := range observerList {
 		if observer.GetObserverID(ctx) == removeID {
 			observerList[observerListLength-1], observerList[i] = observerList[i], observerList[observerListLength-1]
+
 			return observerList[:observerListLength-1]
 		}
 	}
+
 	return observerList
 }

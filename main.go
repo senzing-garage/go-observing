@@ -12,6 +12,11 @@ import (
 	"github.com/senzing-garage/go-observing/subject"
 )
 
+const (
+	port      = 8260
+	sleepTime = 5
+)
+
 func main() {
 	ctx := context.TODO()
 
@@ -64,7 +69,6 @@ func main() {
 	outputError(err)
 
 	runGrpcServer(ctx, aSubject)
-
 }
 
 // ----------------------------------------------------------------------------
@@ -90,7 +94,7 @@ func notifyObservers(ctx context.Context, aSubject subject.Subject, message stri
 
 func runGrpcServer(ctx context.Context, aSubject subject.Subject) {
 	aGrpcServer := &grpcserver.SimpleGrpcServer{
-		Port:    8260,
+		Port:    port,
 		Subject: aSubject,
 	}
 
@@ -99,7 +103,7 @@ func runGrpcServer(ctx context.Context, aSubject subject.Subject) {
 		outputError(err)
 	}()
 
-	time.Sleep(5 * time.Second)
+	time.Sleep(sleepTime * time.Second)
 
 	err := aGrpcServer.GracefulStop(ctx)
 	outputError(err)

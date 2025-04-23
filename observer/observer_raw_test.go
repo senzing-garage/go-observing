@@ -1,7 +1,6 @@
 package observer_test
 
 import (
-	"context"
 	"testing"
 
 	"github.com/senzing-garage/go-observing/observer"
@@ -13,7 +12,8 @@ import (
 // ----------------------------------------------------------------------------
 
 func TestObserverRaw_GetObserverId(test *testing.T) {
-	ctx := context.TODO()
+	test.Parallel()
+	ctx := test.Context()
 	observer := &observer.RawObserver{
 		ID: "1",
 	}
@@ -21,8 +21,8 @@ func TestObserverRaw_GetObserverId(test *testing.T) {
 }
 
 func TestObserverRaw_UpdateObserver(test *testing.T) {
-	_ = test
-	ctx := context.TODO()
+	test.Parallel()
+	ctx := test.Context()
 	observer := &observer.RawObserver{
 		ID: "1",
 	}

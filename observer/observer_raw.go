@@ -29,6 +29,7 @@ Input
 */
 func (observer *RawObserver) GetObserverID(ctx context.Context) string {
 	_ = ctx
+
 	return observer.ID
 }
 
@@ -42,6 +43,7 @@ Input
 */
 func (observer *RawObserver) UpdateObserver(ctx context.Context, message string) {
 	_ = ctx
+
 	if !observer.IsSilent {
 		fmt.Println(message) //nolint
 	}

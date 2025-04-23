@@ -29,6 +29,7 @@ func ExampleSimpleSubject_RegisterObserver() {
 	observer := &observer.NullObserver{
 		ID: "Observer 1",
 	}
+
 	err := subject.RegisterObserver(ctx, observer)
 	if err != nil {
 		fmt.Print(err)
@@ -40,6 +41,7 @@ func ExampleSimpleSubject_NotifyObservers() {
 	// For more information, visit https://github.com/senzing-garage/go-observing/blob/main/subject/subject_test.go
 	ctx := context.TODO()
 	subject := subject.NewSimpleSubject()
+
 	err := subject.NotifyObservers(ctx, "Message 1")
 	if err != nil {
 		fmt.Print(err)
@@ -54,6 +56,7 @@ func ExampleSimpleSubject_UnregisterObserver() {
 	observer := &observer.NullObserver{
 		ID: "Observer 1",
 	}
+
 	err := subject.UnregisterObserver(ctx, observer)
 	if err != nil {
 		fmt.Print(err)

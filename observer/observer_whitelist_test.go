@@ -1,7 +1,6 @@
 package observer_test
 
 import (
-	"context"
 	"testing"
 
 	"github.com/senzing-garage/go-observing/observer"
@@ -13,7 +12,8 @@ import (
 // ----------------------------------------------------------------------------
 
 func TestObserverWhiteList_GetObserverId(test *testing.T) {
-	ctx := context.TODO()
+	test.Parallel()
+	ctx := test.Context()
 	observer := &observer.WhiteListObserver{
 		ID: "1",
 	}
@@ -21,8 +21,8 @@ func TestObserverWhiteList_GetObserverId(test *testing.T) {
 }
 
 func TestObserverWhiteList_UpdateObserver(test *testing.T) {
-	_ = test
-	ctx := context.TODO()
+	test.Parallel()
+	ctx := test.Context()
 	message11 := `{"subjectId":"1", "messageId": "1"}`
 	message12 := `{"subjectId":"1", "messageId": "2"}`
 	message21 := `{"subjectId":"2", "messageId": "1"}`
