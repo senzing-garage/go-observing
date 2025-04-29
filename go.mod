@@ -3,7 +3,7 @@ module github.com/senzing-garage/go-observing
 go 1.24
 
 require (
-	github.com/senzing-garage/go-helpers v0.6.10
+	github.com/senzing-garage/go-helpers v0.6.11
 	github.com/stretchr/testify v1.10.0
 	google.golang.org/grpc v1.72.0
 	google.golang.org/protobuf v1.36.6
