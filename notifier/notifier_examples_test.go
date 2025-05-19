@@ -14,7 +14,8 @@ import (
 // ----------------------------------------------------------------------------
 
 func ExampleNotify() {
-	// For more information, visit https://github.com/senzing-garage/go-observing/blob/main/notifier/notifier_examples_test.go
+	// For more information,
+	// visit https://github.com/senzing-garage/go-observing/blob/main/notifier/notifier_examples_test.go
 	ctx := context.TODO()
 	subject := subject.NewSimpleSubject()
 	origin := "Machine: 6 Process: Rover"

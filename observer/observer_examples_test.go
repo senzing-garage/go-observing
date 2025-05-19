@@ -14,7 +14,8 @@ import (
 // ----------------------------------------------------------------------------
 
 func ExampleNullObserver_GetObserverID() {
-	// For more information, visit https://github.com/senzing-garage/go-observing/blob/main/observer/observer_examples_test.go
+	// For more information,
+	// visit https://github.com/senzing-garage/go-observing/blob/main/observer/observer_examples_test.go
 	ctx := context.TODO()
 	observer := &observer.NullObserver{
 		ID: "1",

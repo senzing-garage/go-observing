@@ -78,20 +78,20 @@ func (observer *WhiteListObserver) parseMessage(message string) (int, int, error
 
 	err := json.Unmarshal([]byte(message), &parsedMessage)
 	if err != nil {
-		return 0, 0, wraperror.Errorf(err, "observer.parseMessage.Unmarshall error: %w", err)
+		return 0, 0, wraperror.Errorf(err, "Unmarshal message: %s", message)
 	}
 
 	subjectID, err := strconv.Atoi(parsedMessage.SubjectID)
 	if err != nil {
-		return 0, 0, wraperror.Errorf(err, "observer.parseMessage.SubjectID error: %w", err)
+		return 0, 0, wraperror.Errorf(err, "SubjectID for message: %s", message)
 	}
 
 	messageID, err := strconv.Atoi(parsedMessage.MessageID)
 	if err != nil {
-		return 0, 0, wraperror.Errorf(err, "observer.parseMessage.MessageID error: %w", err)
+		return 0, 0, wraperror.Errorf(err, "MessageID for message: %s", message)
 	}
 
-	return subjectID, messageID, wraperror.Errorf(err, "observer.parseMessage error: %w", err)
+	return subjectID, messageID, wraperror.Errorf(err, wraperror.NoMessage)
 }
 
 func (observer *WhiteListObserver) onWhiteList(message string) (bool, error) {
@@ -99,11 +99,11 @@ func (observer *WhiteListObserver) onWhiteList(message string) (bool, error) {
 	if !observer.IsSilent {
 		subjectID, messageID, err := observer.parseMessage(message)
 		if err != nil {
-			return false, wraperror.Errorf(err, "observer.onWhiteList.parseMessage error: %w", err)
+			return false, wraperror.Errorf(err, "parseMessage for message: %s", message)
 		}
 
 		return observer.WhiteList[subjectID][messageID], err
 	}
 
-	return false, wraperror.Errorf(err, "observer.onWhiteList error: %w", err)
+	return false, wraperror.Errorf(err, wraperror.NoMessage)
 }

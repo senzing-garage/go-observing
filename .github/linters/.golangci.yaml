@@ -107,8 +107,6 @@ linters:
     - wrapcheck
     - wsl
     - zerologlint
-  disable:
-    - lll
   exclusions:
     generated: lax
     presets:
@@ -138,7 +136,6 @@ linters:
         - '.+/observer\.WhiteListObserver$'
         - '.+/observerpb\.UpdateObserverRequest$'
         - '.+/subject\.SimpleSubject$'
-
 formatters:
   enable:
     - gci
@@ -152,3 +149,6 @@ formatters:
       - third_party$
       - builtin$
       - examples$
+  settings:
+    golines:
+      max-len: 120
