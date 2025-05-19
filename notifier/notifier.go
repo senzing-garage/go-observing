@@ -29,17 +29,12 @@ Where the ":" represents key/values which is message specific.
 Input
 
   - ctx: A context to control lifecycle.
-
   - observers: The observers to notify.
-
   - origin: Identifies the originator of the observer message. Empty string is OK.
-
-  - subjectId: Identifies the component sending the message. See https://github.com/senzing-garage/knowledge-base/blob/main/lists/senzing-product-ids.md
-
+  - subjectId: Identifies the component sending the message.
+    See https://github.com/senzing-garage/knowledge-base/blob/main/lists/senzing-product-ids.md
   - messageId: The unique message sent by the component
-
   - err: Either nil for no error or an error object
-
   - details:  A map of key/value pairs to add to the notification message
 
 Output

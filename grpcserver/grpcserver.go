@@ -59,7 +59,7 @@ func (grpcServer *SimpleGrpcServer) Serve(ctx context.Context) error {
 	if err != nil {
 		log.Printf("Port: %d; Error: %v\n", grpcServer.Port, err)
 
-		return wraperror.Errorf(err, "grpcserver.net.Listen error: %w", err)
+		return wraperror.Errorf(err, "net.Listen on port %d", grpcServer.Port)
 	}
 
 	log.Printf("Observer gRPC service running on port: %d\n", grpcServer.Port)
@@ -80,7 +80,7 @@ func (grpcServer *SimpleGrpcServer) Serve(ctx context.Context) error {
 		log.Println(err)
 	}
 
-	return wraperror.Errorf(err, "grpcserver.Serve error: %w", err)
+	return wraperror.Errorf(err, wraperror.NoMessage)
 }
 
 /*
@@ -108,5 +108,5 @@ func (grpcServer *SimpleGrpcServer) UpdateObserver(
 
 	response := observerpb.UpdateObserverResponse{}
 
-	return &response, wraperror.Errorf(err, "grpcserver.UpdateObserver error: %w", err)
+	return &response, wraperror.Errorf(err, wraperror.NoMessage)
 }
