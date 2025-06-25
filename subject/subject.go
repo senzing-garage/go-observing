@@ -59,11 +59,22 @@ Input
   - message: The string to propagate to all registered Observers.
 */
 func (subject *SimpleSubject) NotifyObservers(ctx context.Context, message string) error {
-	var err error
+	var (
+		err       error
+		waitGroup sync.WaitGroup
+	)
 
 	for _, observer := range subject.observerList {
-		go observer.UpdateObserver(ctx, message)
+		waitGroup.Add(1)
+
+		go func() {
+			defer waitGroup.Done()
+
+			go observer.UpdateObserver(ctx, message)
+		}()
 	}
+
+	waitGroup.Wait()
 
 	return err
 }
