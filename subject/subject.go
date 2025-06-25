@@ -70,7 +70,7 @@ func (subject *SimpleSubject) NotifyObservers(ctx context.Context, message strin
 		go func() {
 			defer waitGroup.Done()
 
-			go observer.UpdateObserver(ctx, message)
+			observer.UpdateObserver(ctx, message)
 		}()
 	}
 
