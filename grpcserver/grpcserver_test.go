@@ -29,6 +29,7 @@ func TestSimpleGrpcServer_Serve(test *testing.T) {
 			panic(err)
 		}
 	}()
+
 	time.Sleep(1 * time.Second)
 
 	err := aGrpcServer.GracefulStop(ctx)

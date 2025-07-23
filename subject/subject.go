@@ -96,6 +96,7 @@ func (subject *SimpleSubject) RegisterObserver(
 	if observer != nil {
 		subject.Lock.RLock()
 		defer subject.Lock.RUnlock()
+
 		if !contains(ctx, subject.observerList, observer) {
 			subject.observerList = append(subject.observerList, observer)
 		}
@@ -121,6 +122,7 @@ func (subject *SimpleSubject) UnregisterObserver(
 	if observer != nil {
 		subject.Lock.RLock()
 		defer subject.Lock.RUnlock()
+
 		subject.observerList = removeFromSlice(ctx, subject.observerList, observer)
 	}
 
