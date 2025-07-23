@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"time"
 
 	"github.com/senzing-garage/go-helpers/wraperror"
 	"github.com/senzing-garage/go-observing/observerpb"
@@ -51,11 +52,17 @@ Input
   - ctx: A context to control lifecycle.
 */
 func (grpcServer *SimpleGrpcServer) Serve(ctx context.Context) error {
-	_ = ctx
+	const (
+		keepAliveSeconds = 30
+	)
 
 	// Set up socket listener.
 
-	listener, err := net.Listen("tcp", fmt.Sprintf(":%d", grpcServer.Port))
+	listenConfig := &net.ListenConfig{ //nolint
+		KeepAlive: keepAliveSeconds * time.Second,
+	}
+
+	listener, err := listenConfig.Listen(ctx, "tcp", fmt.Sprintf(":%d", grpcServer.Port))
 	if err != nil {
 		log.Printf("Port: %d; Error: %v\n", grpcServer.Port, err)
 
