@@ -95,7 +95,6 @@ func (observer *WhiteListObserver) parseMessage(message string) (int, int, error
 }
 
 func (observer *WhiteListObserver) onWhiteList(message string) (bool, error) {
-	var err error
 	if !observer.IsSilent {
 		subjectID, messageID, err := observer.parseMessage(message)
 		if err != nil {
@@ -105,5 +104,5 @@ func (observer *WhiteListObserver) onWhiteList(message string) (bool, error) {
 		return observer.WhiteList[subjectID][messageID], err
 	}
 
-	return false, wraperror.Errorf(err, wraperror.NoMessage)
+	return false, nil
 }
