@@ -78,17 +78,18 @@ The following instructions were used to create a
 
    ```
 
-    1. In `${GIT_REPOSITORY_DIR}/observerpb`, files *with* `_grpc.` in the filename contain the following:
-        - Interface types (or stubs) for clients to call with the methods defined in the services.
-        - Interface types for servers to implement, also with the methods defined in the services.
-        - In other words, its the "gRPC" code that handles the network traffic, not the message content.
-    1. In `${GIT_REPOSITORY_DIR}/observerpb`, files *without* `_grpc.` in the filename contain the following:
-        - protocol buffer code to populate, serialize, and retrieve request and response message types.
-        - In other words, it manages message content, not the network traffic.
+   1. In `${GIT_REPOSITORY_DIR}/observerpb`, files _with_ `_grpc.` in the filename contain the following:
+      - Interface types (or stubs) for clients to call with the methods defined in the services.
+      - Interface types for servers to implement, also with the methods defined in the services.
+      - In other words, its the "gRPC" code that handles the network traffic, not the message content.
+   1. In `${GIT_REPOSITORY_DIR}/observerpb`, files _without_ `_grpc.` in the filename contain the following:
+      - protocol buffer code to populate, serialize, and retrieve request and response message types.
+      - In other words, it manages message content, not the network traffic.
+
 1. References:
-    1. [gRPC Documents for Go]
-        1. [Go Quick start]
-    1. [Thread safety]
+   1. [gRPC Documents for Go]
+      1. [Go Quick start]
+   1. [Thread safety]
 
 ## Test
 
