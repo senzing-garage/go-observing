@@ -2,12 +2,26 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog], [markdownlint],
-and this project adheres to [Semantic Versioning].
+The changelog format is based on [Keep a Changelog] and [CommonMark].
+This project adheres to [Semantic Versioning].
 
 ## [Unreleased]
 
 -
+
+## [0.3.7] - 2026-01-06
+
+### Changed in 0.3.7
+
+- gRPC server uses TCP keep-alive for improved connection reliability
+- Updated dependencies
+  - github.com/senzing-garage/go-helpers v0.6.14
+  - google.golang.org/grpc v1.78.0
+  - google.golang.org/protobuf v1.36.11
+
+### Fixed in 0.3.7
+
+- Fixed error handling in WhiteListObserver when IsSilent is true
 
 ## [0.3.6] - 2025-06-25
 
@@ -156,7 +170,7 @@ and this project adheres to [Semantic Versioning].
 
 - Initial functionality
 
-[Keep a Changelog]: https://keepachangelog.com/en/1.0.0/
-[markdownlint]: https://dlaa.me/markdownlint/
-[Semantic Versioning]: https://semver.org/spec/v2.0.0.html
+[CommonMark]: https://commonmark.org/
+[Keep a Changelog]: https://keepachangelog.com/
+[Semantic Versioning]: https://semver.org/
 [template-go]: https://github.com/senzing-garage/template-go
