@@ -84,7 +84,7 @@ func (grpcServer *SimpleGrpcServer) Serve(ctx context.Context) error {
 
 	err = grpcServer.server.Serve(listener)
 	if err != nil {
-		log.Println(err)
+		log.Printf("%q", err.Error())
 	}
 
 	return wraperror.Errorf(err, wraperror.NoMessage)
