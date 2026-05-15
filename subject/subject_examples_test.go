@@ -27,7 +27,7 @@ func ExampleSimpleSubject_RegisterObserver() {
 	ctx := context.TODO()
 	subject := subject.NewSimpleSubject()
 	observer := &observer.NullObserver{
-		ID: "Observer 1",
+		ID: observer1ID,
 	}
 
 	err := subject.RegisterObserver(ctx, observer)
@@ -54,7 +54,7 @@ func ExampleSimpleSubject_UnregisterObserver() {
 	ctx := context.TODO()
 	subject := subject.NewSimpleSubject()
 	observer := &observer.NullObserver{
-		ID: "Observer 1",
+		ID: observer1ID,
 	}
 
 	err := subject.UnregisterObserver(ctx, observer)
