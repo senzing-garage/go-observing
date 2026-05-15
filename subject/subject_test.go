@@ -11,6 +11,8 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+const observer1ID = "Observer 1"
+
 // ----------------------------------------------------------------------------
 // Test interface functions
 // ----------------------------------------------------------------------------
@@ -20,7 +22,7 @@ func TestSubjectImpl_GetObservers(test *testing.T) {
 	ctx := test.Context()
 	testObject := subject.NewSimpleSubject()
 	observer := &observer.NullObserver{
-		ID: "Observer 1",
+		ID: observer1ID,
 	}
 	err := testObject.RegisterObserver(ctx, observer)
 	require.NoError(test, err)
@@ -38,7 +40,7 @@ func TestSubjectImpl_GetObservers_multi(test *testing.T) {
 	ctx := test.Context()
 	testObject := subject.NewSimpleSubject()
 	observer1 := &observer.NullObserver{
-		ID: "Observer 1",
+		ID: observer1ID,
 	}
 	observer2 := &observer.NullObserver{
 		ID: "Observer 2",
@@ -68,7 +70,7 @@ func TestSubjectImpl_RegisterObserver(test *testing.T) {
 	ctx := test.Context()
 	subject := getTestObject(ctx, test)
 	observer := &observer.NullObserver{
-		ID: "Observer 1",
+		ID: observer1ID,
 	}
 	err := subject.RegisterObserver(ctx, observer)
 	require.NoError(test, err)
@@ -88,7 +90,7 @@ func TestSubjectImpl_UnregisterObserver(test *testing.T) {
 	ctx := test.Context()
 	subject := getTestObject(ctx, test)
 	observer := &observer.NullObserver{
-		ID: "Observer 1",
+		ID: observer1ID,
 	}
 	err := subject.UnregisterObserver(ctx, observer)
 	require.NoError(test, err)
@@ -102,7 +104,7 @@ func TestSubjectImpl_UnregisterObserver_Multiple(test *testing.T) {
 	assert.False(test, subject.HasObservers(ctx))
 
 	observer1 := &observer.NullObserver{
-		ID: "Observer 1",
+		ID: observer1ID,
 	}
 	err := subject.RegisterObserver(ctx, observer1)
 	require.NoError(test, err)
