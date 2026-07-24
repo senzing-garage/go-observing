@@ -5,7 +5,7 @@ go 1.26.0
 require (
 	github.com/senzing-garage/go-helpers v0.6.16
 	github.com/stretchr/testify v1.11.1
-	google.golang.org/grpc v1.81.1
+	google.golang.org/grpc v1.82.1
 	google.golang.org/protobuf v1.36.11
 )
 
