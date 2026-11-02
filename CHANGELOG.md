@@ -7,7 +7,11 @@ This project adheres to [Semantic Versioning].
 
 ## [Unreleased]
 
--
+### Changed in Unreleased
+
+- Update golangci-lint to v2.15.0 (supports Go 1.27.3)
+- Update dependencies:
+  - golang.org/x/net v0.62.0 (fixes GO-2026-6603, GO-2026-6611, GO-2026-6612, GO-2026-6617)
 
 ## [0.4.0] - 2026-10-08
 
